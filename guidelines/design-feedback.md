@@ -44,7 +44,7 @@ Technical documentation needs structure that can be scanned quickly. Tables shou
 
 Verification:
 
-Implemented in `next.config.mjs`, `mdx-components.tsx`, and `app/globals.css`. The live route returns semantic `table`, `thead`, `tbody`, `th`, and `td` elements, with styled documentation links. `npm run lint` and `npm run build -- --webpack` passed.
+Implemented in `next.config.mjs`, `mdx-components.tsx`, and `src/app/globals.css`. The live route returns semantic `table`, `thead`, `tbody`, `th`, and `td` elements, with styled documentation links. `npm run lint` and `npm run build -- --webpack` passed.
 
 ## 2026-08-22, docs hub needs a technical wiki structure
 
@@ -90,7 +90,7 @@ Tapid should feel technical and restrained. Decorative labels and numbered strip
 
 Verification:
 
-Implemented in `components/home/Hero.tsx`; lint and webpack production build passed.
+Implemented in `src/components/home/Hero.tsx`; lint and webpack production build passed.
 
 ## 2026-08-22, header brand asset must resolve from the bundle
 
@@ -113,4 +113,4 @@ Brand assets should render reliably across the static export and local developme
 
 Verification:
 
-Implemented in `components/site/Header.tsx`; lint and webpack production build passed.
+Implemented in `src/components/site/Header.tsx`; lint and webpack production build passed.

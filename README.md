@@ -19,10 +19,10 @@ npm run deploy
 
 ## Structure
 
-- `app/`: routes and page layouts
-- `components/`: shared site and page components
-- `content/`: version-controlled MDX documentation
-- `brand/`: Tapid logo assets
+- `src/app/`: routes and page layouts
+- `src/components/`: shared site and page components
+- `src/content/`: version-controlled MDX documentation
+- `src/brand/`: Tapid logo assets
 - `public/`: static public assets
 
 Documentation is built with the Next.js MDX module so content can grow in the repository and later adopt a larger documentation framework if search, versioning, or navigation requirements justify it.
