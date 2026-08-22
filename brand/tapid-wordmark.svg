@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="180" viewBox="0 0 520 180" role="img" aria-labelledby="title desc">
+  <title id="title">Tapid logo</title>
+  <desc id="desc">An isometric Tapid package outline beside the lowercase Tapid wordmark.</desc>
+  <g transform="translate(12 12) scale(.61)" fill="#000">
+    <polygon points="49.342,80.683 129.342,40.683 126.658,35.317 46.658,75.317"/>
+<polygon points="126.658,40.683 206.658,80.683 209.342,75.317 129.342,35.317"/>
+<polygon points="205.000,78.000 205.000,170.000 211.000,170.000 211.000,78.000"/>
+<polygon points="206.658,167.317 126.658,207.317 129.342,212.683 209.342,172.683"/>
+<polygon points="129.342,207.317 49.342,167.317 46.658,172.683 126.658,212.683"/>
+<polygon points="51.000,170.000 51.000,78.000 45.000,78.000 45.000,170.000"/>
+<polygon points="46.658,80.683 126.658,120.683 129.342,115.317 49.342,75.317"/>
+<polygon points="129.342,120.683 209.342,80.683 206.658,75.317 126.658,115.317"/>
+<polygon points="125.000,118.000 125.000,210.000 131.000,210.000 131.000,118.000"/>
+<circle cx="48" cy="78" r="3"/>
+<circle cx="128" cy="38" r="3"/>
+<circle cx="208" cy="78" r="3"/>
+<circle cx="208" cy="170" r="3"/>
+<circle cx="128" cy="210" r="3"/>
+<circle cx="48" cy="170" r="3"/>
+<circle cx="128" cy="118" r="3"/>
+    <path d="M150 125 186 107v12l-14 7v42l-10 5v-42l-12 6Z" fill="#000"/>
+  </g>
+  <text x="180" y="130" fill="#000" font-family="Inter, ui-sans-serif, system-ui, sans-serif" font-size="110" font-weight="750" letter-spacing="-7">tapid</text>
+</svg>

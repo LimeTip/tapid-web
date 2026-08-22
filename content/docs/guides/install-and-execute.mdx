@@ -1,0 +1,32 @@
+# Install and execute
+
+The intended Tapid flow puts inspection before code runs. The client should resolve the request, inspect the exact artifact and its evidence, apply policy, and only then install or execute the result.
+
+## Planned project dependency flow
+
+This is a conceptual example of planned behavior. It is not a working command today.
+
+```shell
+# Planned behavior, not a working command.
+tapid add acme-widget@^2.4
+```
+
+For a project dependency, Tapid would resolve `acme-widget@^2.4` to an exact release and registry object. It would present the artifact digest and relevant evidence, then apply the project's policy. An allowed operation would update the dependency graph and lockfile before materializing the artifact.
+
+## Planned one-shot tool flow
+
+This is also a conceptual example of planned behavior. It is not a working command today.
+
+```shell
+# Planned behavior, not a working command.
+tapid x release-helper@1.8.2 -- --check
+```
+
+For a one-shot tool, the client would resolve the requested release, inspect its artifact and capabilities, and apply the policy for execution. The tool would run only after the policy outcome permits it. Arguments after `--` belong to the tool, not to Tapid.
+
+The current repository contains the documentation and product plan. The Tapid client and these commands are not implemented here.
+
+## Read next
+
+- [Commands](/docs/commands/)
+- [Evidence and policy](/docs/concepts/evidence-and-policy/)

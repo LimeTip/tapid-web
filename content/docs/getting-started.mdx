@@ -1,0 +1,35 @@
+# Getting started
+
+Tapid is currently design and planning work. It is not an installable package manager yet.
+
+The first useful client will target existing `package.json` projects and npm-compatible registries. That choice keeps adoption possible without requiring a new package ecosystem on day one.
+
+## What Tapid is trying to answer
+
+Before installation or one-shot execution, the client should help answer these questions:
+
+1. What exact code will be installed or executed?
+2. Who published it, and how was it produced?
+3. What changed from the previous release?
+4. Which capabilities does it declare, appear to use, or actually exercise?
+5. Why did policy allow, warn, prompt, or deny the operation?
+
+## What exists today
+
+This repository contains the public website, Markdown/MDX documentation, and product and architecture planning. The package manager itself is not implemented here.
+
+## What is planned next
+
+The first client milestone is planned to include deterministic dependency resolution, a versioned `tapid.lock`, verified artifacts, a content-addressed store, Node-compatible output, and policy-aware execution.
+
+## Read next
+
+- [Package identity](/docs/concepts/package-identity/)
+- [Evidence and policy](/docs/concepts/evidence-and-policy/)
+- [Install and execute](/docs/guides/install-and-execute/)
+- [Agent-safe commands](/docs/guides/agent-safe-commands/)
+- [Commands](/docs/commands/)
+
+## Longer-term direction
+
+The longer-term direction includes a Tapid-native package format, public and private registries, immutable artifact delivery, publisher identity, provenance, verification, package discovery, and governance. These are future design areas, not current product capabilities.

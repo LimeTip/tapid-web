@@ -1,0 +1,31 @@
+# Package identity
+
+A package request is not an identity. `acme-widget@^2.4` describes a name and a version range, but it does not identify the code that a project will install.
+
+## The parts of an identity
+
+The package name is the human-facing name, such as `acme-widget`. A version range, such as `^2.4.0`, describes which releases may satisfy a request. It is a constraint, not a selected release.
+
+The resolved release is the exact version selected after resolution, such as `2.7.1`. The registry identity records where that release came from, including the registry origin and package scope. The same name and version should not silently refer to different registry objects.
+
+The artifact digest identifies the bytes that Tapid would download. If two artifacts have different bytes, they have different digests even when their package names and versions match. A lockfile entry ties these details together so a later operation can reproduce the same selection.
+
+| Term | What it answers |
+| --- | --- |
+| Package name | Which package did the request name? |
+| Version range | Which releases are acceptable? |
+| Resolved release | Which exact version did resolution select? |
+| Registry identity | Which registry object supplied it? |
+| Artifact digest | Which exact bytes will be used? |
+| Lockfile entry | What must a later operation reproduce? |
+
+## What Tapid plans to show
+
+Before install or execution, Tapid plans to show the exact artifact selected for the operation. That view should include the resolved release, registry identity, artifact digest, and the lockfile information that binds the selection.
+
+Digest verification and the client implementation for this flow are planned. This page describes the intended model, not a feature available in the current website.
+
+## Read next
+
+- [Getting started](/docs/getting-started/)
+- [Install and execute](/docs/guides/install-and-execute/)

@@ -1,0 +1,31 @@
+# Commands
+
+The Tapid command interface is planned and not installable. These commands describe the intended client surface while the project is still in design and planning.
+
+## Project commands
+
+### `tapid install`
+
+Resolve and materialize the project dependency graph.
+
+### `tapid add <package-spec>`
+
+Add a dependency and update the lockfile.
+
+### `tapid audit`
+
+Review package evidence and policy decisions.
+
+### `tapid x <package-spec>`
+
+Resolve, inspect, and execute a package tool.
+
+### `tapid lock verify`
+
+Verify lockfile integrity and referenced artifacts.
+
+### `tapid store gc --dry-run`
+
+Preview safe cleanup of unreferenced store objects.
+
+[Security model](/security/) · [Evidence and policy](/docs/concepts/evidence-and-policy/)

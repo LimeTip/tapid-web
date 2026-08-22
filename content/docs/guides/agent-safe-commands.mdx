@@ -1,0 +1,18 @@
+# Agent-safe commands
+
+An agent can start a package-backed command quickly, but speed does not tell it what code will run. Before an agent runs a command, it needs enough context to identify the package and judge the operation.
+
+That context should include the package identity, the changes in the selected release, its declared and observed capabilities, publisher context, and the policy outcome for this operation. The agent also needs to know whether the result came from an exact artifact or from a request that still needs resolution.
+
+This information lets an agent distinguish a known, approved operation from one that needs a person or a different policy. It also gives the agent a reason to stop when a release changes or when a command asks for a capability outside its allowed context.
+
+## Unattended operation
+
+Fail-closed behavior is planned for unattended operation. If Tapid cannot establish the package identity, gather the required evidence, or obtain an allow decision, the command should stop instead of running with missing context.
+
+This is planned behavior, not a current agent integration. Tapid does not currently provide an agent runner or a command execution service.
+
+## Read next
+
+- [Install and execute](/docs/guides/install-and-execute/)
+- [Evidence and policy](/docs/concepts/evidence-and-policy/)

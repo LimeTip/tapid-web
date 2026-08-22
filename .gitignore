@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.vercel/
+out/
+.cache/
+.hermes/
+.wrangler/
+coverage/
+*.tsbuildinfo
+temp/
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log

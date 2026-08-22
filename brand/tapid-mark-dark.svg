@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Tapid dark mark</title>
+  <desc id="desc">The black Tapid package outline with a geometric t on the right face.</desc>
+
+  <path d="M48 78 128 38l80 40v92l-80 40-80-40Z M48 78l80 40 80-40 M128 118v92" fill="none" stroke="#000" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M150 125 186 107v12l-14 7v42l-10 5v-42l-12 6Z" fill="#000"/>
+</svg>

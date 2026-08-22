@@ -1,0 +1,25 @@
+# Registries and publishing
+
+Registries are package sources and trust boundaries. Tapid plans to work with public registries and private registries, but the client must make the source of a package explicit.
+
+## Routing and credentials
+
+Explicit scope routing should decide which registry receives a request. A private scope should not fall through to a public registry because a configuration entry is missing. Registry credentials should stay within the boundary that needs them. The client should not silently send private credentials to another origin.
+
+Registry identity is part of package identity. A name and version are not enough if two registries can provide different package objects for the same request.
+
+## Publishing and release history
+
+Publishing should record publisher identity and provenance where available. Release changes should remain visible, including corrections to a release that affect its artifact, metadata, or declared capabilities.
+
+The threshold for revoking a release is an open policy question. This documentation does not choose one final revocation rule. A useful policy may need to distinguish a corrected release, a compromised publisher, and an artifact that must no longer be accepted by unattended systems.
+
+Defenses against name squatting are future governance work. They may involve namespace ownership, publisher verification, history, or review, but Tapid has not selected a final governance model.
+
+Independent verification of publisher claims, provenance, and artifact content is a planned capability. The client implementation and registry services are not available in the current project.
+
+## Read next
+
+- [Package identity](/docs/concepts/package-identity/)
+- [Evidence and policy](/docs/concepts/evidence-and-policy/)
+- [Roadmap](/roadmap/)

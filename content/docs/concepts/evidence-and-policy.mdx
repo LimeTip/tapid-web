@@ -1,0 +1,21 @@
+# Evidence and policy
+
+Tapid separates observations about a package from the decision made about an operation. This keeps a useful fact visible even when a policy changes later.
+
+## Evidence is factual context
+
+Evidence can include the publisher context, the changes in a release, and available provenance about how the artifact was produced. It can also describe behavior and capability signals, including lifecycle scripts, native code, network access, filesystem access, and other operations that may affect a project or machine.
+
+Some evidence comes from package metadata. Other evidence may come from inspecting the artifact or observing an execution. Each source has limits, so the interface should show what was observed and where it came from.
+
+## Policy turns evidence into a decision
+
+Policy consumes the evidence for a specific operation and produces an outcome. The outcome may be allow, warning, prompt, or denial. A policy can treat the same evidence differently for a local development install, a CI job, or an unattended agent run.
+
+Tapid does not reduce uncertainty to an unexplained universal safety score. A single number would hide which facts led to a decision and would make it hard to review a changed policy. The useful result is a visible set of evidence followed by a decision that names the rule or condition that caused it.
+
+## Read next
+
+- [Package identity](/docs/concepts/package-identity/)
+- [Agent-safe commands](/docs/guides/agent-safe-commands/)
+- [Security model](/security/)
