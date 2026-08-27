@@ -12,6 +12,35 @@ function Fail([string]$Message) {
     throw "tapid installer: $Message"
 }
 
+$PathUpdated = $false
+function Configure-UserPath([string]$Directory) {
+    $normalized = ([IO.Path]::GetFullPath($Directory)).TrimEnd('\\')
+    $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    $entries = @($userPath -split ';' | Where-Object { $_ -and $_.TrimEnd('\\') })
+    $alreadyConfigured = @($entries | Where-Object {
+        ([IO.Path]::GetFullPath($_)).TrimEnd('\\') -ieq $normalized
+    }).Count -gt 0
+    if (-not $alreadyConfigured) {
+        $newUserPath = (($entries + $normalized) -join ';')
+        [Environment]::SetEnvironmentVariable("Path", $newUserPath, "User")
+    }
+    if (($env:Path -split ';' | ForEach-Object { $_.TrimEnd('\\') }) -notcontains $normalized) {
+        if ([string]::IsNullOrEmpty($env:Path)) {
+            $env:Path = $normalized
+        } else {
+            $env:Path = "$normalized;$env:Path"
+        }
+    }
+    $script:PathUpdated = $true
+}
+
+function Print-PathGuidance {
+    if ($PathUpdated) {
+        Write-Output "Tapid is ready in this PowerShell session and future user sessions."
+        Write-Output "Open a new terminal if another process does not see the updated PATH."
+    }
+}
+
 function Test-Repository([string]$Value) {
     return $Value -match '^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$'
 }
@@ -41,12 +70,15 @@ if ($PSBoundParameters.ContainsKey("Version") -and $PSBoundParameters.ContainsKe
 if ($PSBoundParameters.ContainsKey("SourceRef") -and [string]::IsNullOrWhiteSpace($SourceRef)) {
     Fail "-SourceRef requires a non-empty value"
 }
+if (-not $PSBoundParameters.ContainsKey("Version") -and -not $PSBoundParameters.ContainsKey("SourceRef")) {
+    $SourceRef = "main"
+}
 
 New-Item -ItemType Directory -Force -Path $InstallDir | Out-Null
 $destination = Join-Path $InstallDir "tapid.exe"
 Test-RegularDestination $destination
 
-if ($PSBoundParameters.ContainsKey("SourceRef")) {
+if (-not [string]::IsNullOrEmpty($SourceRef)) {
     if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
         Fail "git is required for -SourceRef"
     }
@@ -76,7 +108,9 @@ if ($PSBoundParameters.ContainsKey("SourceRef")) {
         if ($LASTEXITCODE -ne 0) { Fail "cargo build failed" }
         Copy-Item -LiteralPath (Join-Path $cargoRoot "bin\tapid.exe") -Destination $staged -Force
         Move-Item -LiteralPath $staged -Destination $destination -Force
+        Configure-UserPath $InstallDir
         Write-Output "Installed Tapid from $SourceRef into $destination"
+        Print-PathGuidance
         exit 0
     }
     finally {
@@ -135,7 +169,9 @@ try {
     Test-RegularDestination $extracted
     Copy-Item -LiteralPath $extracted -Destination $staged -Force
     Move-Item -LiteralPath $staged -Destination $destination -Force
+    Configure-UserPath $InstallDir
     Write-Output "Installed Tapid $Version into $destination"
+    Print-PathGuidance
 }
 finally {
     Remove-Item -LiteralPath $tempRoot -Recurse -Force -ErrorAction SilentlyContinue
