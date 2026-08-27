@@ -20,7 +20,7 @@ export default function Header() {
       <Collapsible.Root open={open} onOpenChange={setOpen}>
       <nav className="site-container flex h-[4.25rem] items-center justify-between">
         <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
-          <Image src={mark} alt="" width={36} height={36} className="h-9 w-9 object-contain" />
+          <Image src={mark} alt="" width={36} height={36} className="h-9 w-9 object-contain brightness-0 invert" />
           <span className="text-lg font-semibold tracking-[-0.04em] group-hover:text-lime-300">tapid</span>
         </Link>
         <div className="hidden items-center gap-8 md:flex">
