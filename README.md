@@ -9,7 +9,17 @@ npm install
 npm run dev
 ```
 
-The site is currently exported as static content for Cloudflare Pages:
+The site is currently exported as static content for Cloudflare Pages. The public installer endpoints are emitted from `public/` at the site root:
+
+```bash
+curl -fsSL https://tapid.dev/install.sh | bash
+```
+
+```powershell
+iwr -useb https://tapid.dev/install.ps1 | iex
+```
+
+These default commands install the latest stable Tapid release and verify its SHA-256 checksum. A specific stable version or development source ref can be selected through the installer options.
 
 ```text
 npm run lint

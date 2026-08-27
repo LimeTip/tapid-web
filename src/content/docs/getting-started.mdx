@@ -1,35 +1,49 @@
 # Getting started
 
-Tapid is currently design and planning work. It is not an installable package manager yet.
+Tapid is a JavaScript and TypeScript package manager written in Rust. The current client is a limited development slice, not a production-ready replacement for npm or pnpm.
 
-The first useful client will target existing `package.json` projects and npm-compatible registries. That choice keeps adoption possible without requiring a new package ecosystem on day one.
+The useful distinction is simple: the CLI already supports deterministic local installation and lockfile replay, while broader online npm compatibility, publishing, evidence-aware policy, and agent integrations remain planned or incomplete.
 
-## What Tapid is trying to answer
+## Try the implemented path
 
-Before installation or one-shot execution, the client should help answer these questions:
+The repository contains a consumer fixture that exercises the current install and run behavior without depending on a live registry.
 
-1. What exact code will be installed or executed?
-2. Who published it, and how was it produced?
-3. What changed from the previous release?
-4. Which capabilities does it declare, appear to use, or actually exercise?
-5. Why did policy allow, warn, prompt, or deny the operation?
+```bash
+cargo build -p tapid --locked
+export GITHUB_ENV="$(mktemp)"
+node tests/fixtures/create_consumer_project.js
+. "$GITHUB_ENV"
+export TAPID_FIXTURE=1
+target/debug/tapid install --offline --frozen --project-dir "$TAPID_FIXTURE_PROJECT"
+target/debug/tapid run --project-dir "$TAPID_FIXTURE_PROJECT" test -- forwarded 0
+```
 
-## What exists today
+A local macOS run produced:
 
-This repository contains the public website, Markdown/MDX documentation, and product and architecture planning. The package manager itself is not implemented here.
+```text
+Replayed lockfile: 0 package(s)
+Verified: node_modules created; dependency lifecycle marker absent.
+```
 
-## What is planned next
+The fixture checks managed `node_modules`, root-script execution, argument forwarding, child exit-code propagation, executable metadata, and suppression of the dependency lifecycle marker. This is evidence for the fixture path only, not a claim that general npm installation is production-ready.
 
-The first client milestone is planned to include deterministic dependency resolution, a versioned `tapid.lock`, verified artifacts, a content-addressed store, Node-compatible output, and policy-aware execution.
+## What the current client answers
 
-## Read next
+For the implemented path, Tapid can answer:
 
-- [Package identity](/docs/concepts/package-identity/)
-- [Evidence and policy](/docs/concepts/evidence-and-policy/)
-- [Install and execute](/docs/guides/install-and-execute/)
-- [Agent-safe commands](/docs/guides/agent-safe-commands/)
-- [Commands](/docs/commands/)
+- Can this project replay its existing lockfile without network access?
+- Does the lockfile's manifest and store content validate before activation?
+- Were managed `node_modules` files created?
+- Can an explicit root script run with forwarded arguments?
+- Does the child process exit code return to the caller?
+- Were dependency lifecycle scripts suppressed during install?
 
-## Longer-term direction
+## What is not implemented yet
 
-The longer-term direction includes a Tapid-native package format, public and private registries, immutable artifact delivery, publisher identity, provenance, verification, package discovery, and governance. These are future design areas, not current product capabilities.
+The current client does not provide complete npm range compatibility, aliases, tags, git/file/workspace specs, peer resolution, workspaces, private-registry authentication, package publishing, an audit command, an agent runner, a sandbox, or process capability enforcement.
+
+The website and documentation describe those areas only as planned or future direction. See [Commands](/docs/commands/) for the current command surface and the [roadmap](/roadmap/) for sequencing.
+
+## Follow the model
+
+Read [Package identity](/docs/concepts/package-identity/) to understand why a name and version range are not enough to identify an artifact. Then read [Evidence and policy](/docs/concepts/evidence-and-policy/) for the planned decision model, or [Install and execute](/docs/guides/install-and-execute/) for the boundary between implemented replay and planned online workflows.

@@ -2,30 +2,35 @@
 
 A package request is not an identity. `acme-widget@^2.4` describes a name and a version range, but it does not identify the code that a project will install.
 
-## The parts of an identity
+## Follow one request to one artifact
 
-The package name is the human-facing name, such as `acme-widget`. A version range, such as `^2.4.0`, describes which releases may satisfy a request. It is a constraint, not a selected release.
+A useful package decision binds the request to all of these values:
 
-The resolved release is the exact version selected after resolution, such as `2.7.1`. The registry identity records where that release came from, including the registry origin and package scope. The same name and version should not silently refer to different registry objects.
+| Term | What it answers | Example |
+| --- | --- | --- |
+| Package name | Which package did the request name? | `acme-widget` |
+| Version range | Which releases are acceptable? | `^2.4` |
+| Resolved release | Which exact version was selected? | `2.7.1` |
+| Registry identity | Which registry object supplied it? | `npmjs.org/acme-widget` |
+| Artifact digest | Which exact bytes will be used? | `sha512-...` |
+| Lockfile entry | What must a later operation reproduce? | `tapid.lock` record |
 
-The artifact digest identifies the bytes that Tapid would download. If two artifacts have different bytes, they have different digests even when their package names and versions match. A lockfile entry ties these details together so a later operation can reproduce the same selection.
+The range is a constraint. The resolved release is a selection. The artifact digest identifies the bytes. The registry identity prevents the same name and version from silently referring to different registry objects.
 
-| Term | What it answers |
-| --- | --- |
-| Package name | Which package did the request name? |
-| Version range | Which releases are acceptable? |
-| Resolved release | Which exact version did resolution select? |
-| Registry identity | Which registry object supplied it? |
-| Artifact digest | Which exact bytes will be used? |
-| Lockfile entry | What must a later operation reproduce? |
+## Why the lockfile matters
 
-## What Tapid plans to show
+A later offline or frozen operation should not resolve the request again. It should validate the lockfile's manifest digest, package identities, tree digests, and verified store content before activating managed `node_modules`.
 
-Before install or execution, Tapid plans to show the exact artifact selected for the operation. That view should include the resolved release, registry identity, artifact digest, and the lockfile information that binds the selection.
+That behavior is implemented for the current replay path. The client prints:
 
-Digest verification and the client implementation for this flow are planned. This page describes the intended model, not a feature available in the current website.
+```text
+Replayed lockfile: 0 package(s)
+```
 
-## Read next
+The fixture used for this check contains an empty package set, so the output is not an example of a populated dependency graph. It is evidence that the replay path validated and activated the fixture project.
 
-- [Getting started](/docs/getting-started/)
-- [Install and execute](/docs/guides/install-and-execute/)
+## What is implemented and what is planned
+
+The current CLI has lockfile validation and deterministic replay. It does not yet provide the complete package identity and evidence view described by the product direction. Registry-wide publisher provenance, independent artifact verification, private-registry routing, and policy decisions remain planned or incomplete.
+
+Read [Evidence and policy](/docs/concepts/evidence-and-policy/) to see how an exact identity would feed a decision, then read [Install and execute](/docs/guides/install-and-execute/) for the current replay command and proposed future flows.

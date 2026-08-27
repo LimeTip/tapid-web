@@ -1,18 +1,37 @@
 # Agent-safe commands
 
-An agent can start a package-backed command quickly, but speed does not tell it what code will run. Before an agent runs a command, it needs enough context to identify the package and judge the operation.
+The current Tapid client does not provide an agent runner or command execution service. This page describes the context an eventual agent integration should require, while documenting the safeguards already present in the CLI's explicit `run` command.
 
-That context should include the package identity, the changes in the selected release, its declared and observed capabilities, publisher context, and the policy outcome for this operation. The agent also needs to know whether the result came from an exact artifact or from a request that still needs resolution.
+## What exists today
 
-This information lets an agent distinguish a known, approved operation from one that needs a person or a different policy. It also gives the agent a reason to stop when a release changes or when a command asks for a capability outside its allowed context.
+`tapid run <script>` runs a root `package.json` script only after the caller chooses that command. It executes in the project directory, prepends the managed `node_modules/.bin` directory to `PATH`, forwards arguments after `--`, and returns the child exit status.
 
-## Unattended operation
+```bash
+tapid run --project-dir ./example test -- --runInBand
+```
 
-Fail-closed behavior is planned for unattended operation. If Tapid cannot establish the package identity, gather the required evidence, or obtain an allow decision, the command should stop instead of running with missing context.
+Root scripts may execute arbitrary project code through the platform shell. This is compatibility-oriented process execution, not a sandbox or a security boundary.
 
-This is planned behavior, not a current agent integration. Tapid does not currently provide an agent runner or a command execution service.
+## Context an agent should receive
 
-## Read next
+Before an agent starts a package-backed operation, the integration should provide:
 
-- [Install and execute](/docs/guides/install-and-execute/)
-- [Evidence and policy](/docs/concepts/evidence-and-policy/)
+- The exact package identity and artifact digest.
+- The selected registry and publisher context.
+- Release changes and available provenance.
+- Declared, inspected, and observed capability signals.
+- The policy outcome for this specific operation.
+- Whether the artifact is exact or still requires resolution.
+- The limitations of the evidence and the enforcement boundary.
+
+This lets an agent distinguish a known operation from one that needs review. It also gives the agent a reason to stop when the release changes or the requested action falls outside its allowed context.
+
+## Planned unattended behavior
+
+Fail-closed behavior is planned for unattended operation. If Tapid cannot establish package identity, gather required evidence, or obtain an allow decision, the operation should stop rather than continue with missing context.
+
+That behavior is a design target, not a current agent integration. Do not describe it as an existing guarantee.
+
+## Continue with the real client
+
+Use [Commands](/docs/commands/) for the implemented CLI surface. Read [Evidence and policy](/docs/concepts/evidence-and-policy/) for the planned separation between observations and decisions, then review [Install and execute](/docs/guides/install-and-execute/) for the exact boundary between current and proposed behavior.

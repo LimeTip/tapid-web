@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@base-ui/react/button";
+import { Collapsible } from "@base-ui/react/collapsible";
 import mark from "@/brand/tapid-mark.png";
 
 const links = [
@@ -16,8 +17,8 @@ const links = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 border-b border-[#eeeeec] bg-white/90 backdrop-blur-lg">
-      <div className="h-1 bg-gradient-to-r from-lime-500 to-lime-600" />
+    <header className="sticky top-0 z-50 border-b border-[#eeeeec] bg-white">
+      <Collapsible.Root open={open} onOpenChange={setOpen}>
       <nav className="site-container flex h-[4.25rem] items-center justify-between">
         <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
           <Image src={mark} alt="" width={36} height={36} className="h-9 w-9 object-contain" />
@@ -29,14 +30,16 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
-          <Button className="rounded-lg bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-lime-700">Read the docs</Button>
+          <Button render={<Link href="/docs" />} className="bg-neutral-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-lime-700 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-700">Read the docs</Button>
         </div>
-        <Button className="rounded-lg px-3 py-2 text-neutral-700 hover:bg-neutral-100 md:hidden" onClick={() => setOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={open}>
-          {open ? "Close" : "Menu"}
-        </Button>
+        <div className="md:hidden">
+          <Collapsible.Trigger className="px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-700">
+            <span className="sr-only">Toggle navigation</span>
+            {open ? "Close" : "Menu"}
+          </Collapsible.Trigger>
+        </div>
       </nav>
-      {open && (
-        <div className="border-t border-[#eeeeec] bg-white md:hidden">
+      <Collapsible.Panel className="overflow-hidden border-t border-[#eeeeec] bg-white data-ending-style:h-0 data-starting-style:h-0 md:hidden">
           <div className="site-container flex flex-col gap-1 py-4">
             {links.map((link) => (
               <Link key={link.href} href={link.href} target={link.external ? "_blank" : undefined} rel={link.external ? "noreferrer" : undefined} onClick={() => setOpen(false)} className="rounded-lg px-3 py-3 text-base font-medium text-neutral-700 hover:bg-lime-50 hover:text-lime-800">
@@ -44,8 +47,8 @@ export default function Header() {
               </Link>
             ))}
           </div>
-        </div>
-      )}
+        </Collapsible.Panel>
+      </Collapsible.Root>
     </header>
   );
 }
