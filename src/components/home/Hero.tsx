@@ -1,10 +1,10 @@
 import Link from "next/link";
 import { Button } from "@base-ui/react/button";
 
-const checks = [
-  ["manifest", "package.json validated"],
-  ["lockfile", "offline replay implemented"],
-  ["scripts", "explicit root execution"],
+const session = [
+  { command: "tapid init demo", output: "Created demo/package.json", tone: "success" },
+  { command: "tapid manifest validate demo/package.json", output: "Valid manifest: demo@0.1.0", tone: "success" },
+  { command: "tapid install <package-spec>", output: "planned: package resolution is not available yet", tone: "planned" },
 ];
 
 export default function Hero() {
@@ -28,35 +28,31 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="border border-neutral-700 bg-neutral-900/80">
-          <div className="flex items-center justify-between border-b border-neutral-700 px-5 py-4 font-mono text-xs">
-            <span className="text-neutral-300">tapid / command surface</span>
-            <span className="text-neutral-500">current CLI</span>
+        <div className="overflow-hidden border border-neutral-700 bg-[#111111] shadow-2xl shadow-black/20">
+          <div className="flex items-center gap-2 border-b border-neutral-700 px-5 py-4" aria-label="Terminal window">
+            <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" aria-hidden="true" />
+            <span className="h-2.5 w-2.5 rounded-full bg-amber-300/80" aria-hidden="true" />
+            <span className="h-2.5 w-2.5 rounded-full bg-lime-400/80" aria-hidden="true" />
+            <span className="ml-3 font-mono text-xs text-neutral-400">zsh · ~/projects/demo</span>
           </div>
-          <div className="space-y-6 p-5 sm:p-6">
-            <div className="font-mono text-sm leading-7">
-              <p className="m-0 text-neutral-500"><span className="text-lime-300">$</span> tapid install is-char</p>
-              <p className="m-0 text-amber-300">error: package argument not implemented</p>
-              <p className="m-0 pt-2 text-xs leading-5 text-neutral-500">The intended package-facing command. Resolution is the next implementation gap.</p>
-            </div>
-            <div className="border-t border-neutral-700 pt-5">
-              <p className="m-0 font-mono text-xs text-neutral-500">verified project behavior</p>
-              <div className="mt-4 space-y-3">
-                {checks.map(([label, value]) => (
-                  <div key={label} className="grid grid-cols-[5.5rem_1fr] gap-3 text-sm">
-                    <span className="font-mono text-neutral-500">{label}</span>
-                    <span className="text-neutral-200">{value}</span>
-                  </div>
-                ))}
+          <div className="space-y-6 p-5 font-mono text-[0.78rem] leading-6 sm:p-6 sm:text-sm">
+            {session.map(({ command, output, tone }) => (
+              <div key={command}>
+                <p className="m-0 break-words text-neutral-100">
+                  <span className="text-lime-300">$</span> {command}
+                </p>
+                <p className={`m-0 break-words ${tone === "success" ? "text-neutral-300" : "text-amber-300"}`}>
+                  {output}
+                </p>
               </div>
-            </div>
+            ))}
+            <p className="m-0 text-neutral-600"><span className="text-lime-300">$</span> <span className="inline-block h-4 w-2 translate-y-0.5 bg-neutral-400 motion-safe:animate-pulse" aria-label="Cursor" /></p>
           </div>
           <div className="border-t border-neutral-700 px-5 py-4 text-xs leading-5 text-neutral-500 sm:px-6">
-            No fabricated install result. The current evidence is a project replay, not package resolution.
+            A real project path today. Package resolution is the next boundary.
           </div>
         </div>
       </div>
-
     </section>
   );
 }
