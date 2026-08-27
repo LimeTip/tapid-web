@@ -34,7 +34,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en">
       <body>
-        <RootProvider search={{ enabled: true, options: { type: "static", api: "/api/search" } }}>
+        <RootProvider
+          theme={{ enabled: true, defaultTheme: "dark", enableSystem: false }}
+          search={{ enabled: true, options: { type: "static", api: "/api/search" } }}
+        >
           <Header />
           {children}
           <Footer />
