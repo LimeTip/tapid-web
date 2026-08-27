@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import mark from "@/brand/tapid-mark.png";
+import mark from "@/brand/tapid-mark-white.png";
 
 export default function Footer() {
   return (
@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="site-container grid gap-10 py-12 md:grid-cols-[1fr_auto] md:items-end">
         <div>
           <div className="flex items-center gap-3">
-            <Image src={mark} alt="" width={32} height={32} className="h-8 w-8 brightness-0 invert" />
+            <Image src={mark} alt="" width={32} height={32} className="h-8 w-8" />
             <span className="font-semibold tracking-[-0.04em]">tapid</span>
           </div>
           <p className="mt-4 max-w-md text-sm leading-6 text-neutral-300">

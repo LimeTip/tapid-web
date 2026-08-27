@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@base-ui/react/button";
 import { Collapsible } from "@base-ui/react/collapsible";
-import mark from "@/brand/tapid-mark.png";
+import mark from "@/brand/tapid-mark-white.png";
 
 const links = [
   { href: "/docs", label: "Docs" },
@@ -20,7 +20,7 @@ export default function Header() {
       <Collapsible.Root open={open} onOpenChange={setOpen}>
       <nav className="site-container flex h-[4.25rem] items-center justify-between">
         <Link href="/" className="group flex items-center gap-3" onClick={() => setOpen(false)}>
-          <Image src={mark} alt="" width={36} height={36} className="h-9 w-9 object-contain brightness-0 invert" />
+          <Image src={mark} alt="" width={36} height={36} className="h-9 w-9 object-contain" />
           <span className="text-lg font-semibold tracking-[-0.04em] group-hover:text-lime-300">tapid</span>
         </Link>
         <div className="hidden items-center gap-8 md:flex">
