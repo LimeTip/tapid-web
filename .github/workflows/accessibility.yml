@@ -1,0 +1,37 @@
+name: Accessibility and contrast
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pa11y:
+    name: WCAG contrast and accessibility scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static site
+        run: npm run build -- --webpack
+
+      - name: Run Pa11y against every route
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory out > /tmp/tapid-web-http-server.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid"' EXIT
+          curl --fail --retry 10 --retry-delay 1 --retry-connrefused http://127.0.0.1:4173/
+          npx --yes pa11y-ci@4.0.1 --config .pa11yci.json

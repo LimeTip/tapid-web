@@ -1,0 +1,26 @@
+---
+title: tapid init
+description: Create a private package.json manifest.
+---
+
+## Syntax
+
+```text
+tapid init [PATH]
+```
+
+Create a private `package.json` manifest. If `PATH` is omitted, Tapid uses the current directory.
+
+Tapid does not overwrite an existing manifest. The generated project starts with a `0.1.0` version and a private flag.
+
+## Example
+
+```text
+$ tapid init demo
+Created demo/package.json
+
+$ tapid manifest validate demo/package.json
+Valid manifest: demo@0.1.0
+```
+
+The command is implemented in the current CLI. It creates project identity, but it does not install dependencies or resolve a package from a registry.

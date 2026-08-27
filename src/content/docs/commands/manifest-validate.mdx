@@ -1,0 +1,23 @@
+---
+title: tapid manifest validate
+description: Validate a package.json manifest before project work.
+---
+
+## Syntax
+
+```text
+tapid manifest validate [PATH]
+```
+
+Validate the selected manifest. The path defaults to `package.json` in the current directory.
+
+Validation covers the manifest shape and package identity used by the current project workflow. A valid manifest is a prerequisite for install and script operations.
+
+## Example
+
+```text
+$ tapid manifest validate package.json
+Valid manifest: demo@0.1.0
+```
+
+The command is implemented. It validates project input only. It does not resolve dependencies, generate a lockfile, or contact a registry.

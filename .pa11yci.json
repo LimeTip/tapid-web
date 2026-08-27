@@ -1,0 +1,25 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "wait": 1000,
+    "runners": ["htmlcs"],
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox"]
+    }
+  },
+  "urls": [
+    "http://127.0.0.1:4173/",
+    "http://127.0.0.1:4173/docs/",
+    "http://127.0.0.1:4173/docs/getting-started/",
+    "http://127.0.0.1:4173/docs/commands/",
+    "http://127.0.0.1:4173/docs/commands/init/",
+    "http://127.0.0.1:4173/docs/commands/manifest-validate/",
+    "http://127.0.0.1:4173/docs/commands/lock-verify/",
+    "http://127.0.0.1:4173/docs/commands/install/",
+    "http://127.0.0.1:4173/docs/commands/run/",
+    "http://127.0.0.1:4173/docs/commands/upgrade/",
+    "http://127.0.0.1:4173/docs/concepts/package-identity/",
+    "http://127.0.0.1:4173/docs/concepts/evidence-and-policy/"
+  ]
+}

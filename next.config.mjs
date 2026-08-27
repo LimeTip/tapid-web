@@ -1,7 +1,6 @@
-import createMDX from "@next/mdx";
+import { createMDX } from "fumadocs-mdx/next";
 
 const withMDX = createMDX({
-  extension: /\.mdx?$/,
   options: {
     remarkPlugins: ["remark-gfm"],
   },
