@@ -14,23 +14,37 @@ Each evidence source has limits. Metadata is not runtime observation. Static ins
 
 ## Policy explains what happens next
 
-Policy consumes evidence for one operation and produces an outcome: allow, warning, prompt, or denial. The same evidence may lead to different outcomes for local development, CI, or an unattended agent.
+A future policy layer can consume evidence for one operation and produce an outcome: allow, warning, prompt, or denial. The same evidence may lead to different outcomes for local development, CI, or unattended automation.
 
-Tapid should not compress uncertainty into an unexplained safety score. A score hides which facts caused the decision and makes policy changes difficult to review. A useful result names the evidence, the rule, the decision, and the limitation.
+Tapid should not compress uncertainty into an unexplained safety score. A useful result names the evidence, the rule, the decision, and the limitation.
 
 ## What is implemented today
 
-The current client validates lockfile replay and suppresses dependency lifecycle scripts during install. It does not yet provide an evidence service, publisher provenance verification, a policy engine, a sandbox, or runtime capability enforcement.
+The current client validates lockfile replay, verifies the supported store inputs, materializes managed `node_modules`, and suppresses dependency lifecycle scripts during install. It does not yet provide an evidence service, publisher provenance verification, a policy engine, a sandbox, or runtime capability enforcement.
 
-The local fixture produced this concrete result:
+The local fixture checks this narrow boundary:
 
 ```text
 Replayed lockfile: 0 package(s)
 Verified: node_modules created; dependency lifecycle marker absent.
 ```
 
-That output demonstrates a narrow install behavior. It is not a security verdict about arbitrary packages.
+That output demonstrates a test path. It is not a security verdict about arbitrary packages.
+
+## Registry and publishing boundary
+
+The current client supports a local JSON registry fixture for tests and air-gapped development. It does not provide private-registry authentication, publishing, a discovery service, or a complete public npm compatibility surface.
+
+Future registry routing should make the source explicit. A private scope should not fall through to a public registry because a configuration entry is missing. Credentials should stay within the registry boundary that needs them and should never be silently sent to another origin.
+
+A future publishing flow should record publisher identity, provenance where available, and release changes that affect an artifact. Namespace governance, revocation, and independent verification remain design work.
+
+## Agent and execution boundary
+
+The current client does not provide an agent runner or command execution service. `tapid run <script>` is an explicit root-script command, and root scripts may execute arbitrary project code through the platform shell. It is not a sandbox or a security boundary.
+
+A future integration may provide an agent with exact package identity, artifact digest, registry and publisher context, release changes, capability signals, policy outcome, and evidence limitations. Fail-closed unattended behavior is a design target, not a current guarantee.
 
 ## Continue the decision path
 
-Read [Install and execute](/docs/guides/install-and-execute/) for the current and planned command boundary. Read the [Security model](/security/) for threat boundaries, limitations, and the distinction between evidence and enforcement.
+Read [Getting started](/docs/getting-started/) for the supported project path and [Commands](/docs/commands/) for the current CLI surface. Read the [implementation threat model](https://github.com/LimeTip/tapid/blob/main/docs/threat-model.md) and [security policy](https://github.com/LimeTip/tapid/blob/main/SECURITY.md) for repository-level boundaries.

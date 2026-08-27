@@ -11,7 +11,7 @@ export default function DirectionSection() {
         <div>
           <p className="m-0 max-w-2xl text-lg leading-8 text-neutral-300">Tapid&apos;s next work is not a promise of a finished ecosystem. It is a sequence of implementation problems: make the current client useful, make artifact decisions inspectable, then build the registry and publishing model that can support them.</p>
           <div className="mt-8 flex flex-wrap gap-x-7 gap-y-4">
-            <ArrowLink href="/roadmap" inverse>See the implementation roadmap</ArrowLink>
+            <ArrowLink href="/docs/getting-started/" inverse>See current status</ArrowLink>
             <Link href="https://github.com/LimeTip/tapid" className="font-medium text-white underline decoration-neutral-600 decoration-2 underline-offset-4 hover:text-lime-300">Inspect the CLI repository ↗</Link>
           </div>
         </div>
