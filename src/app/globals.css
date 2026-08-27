@@ -68,6 +68,8 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .docs-link:focus-visible { outline: 2px solid #a3e635; outline-offset: 3px; }
 .docs-inline-code { border: 1px solid #3f3f3b; border-radius: .35rem; background: #1c1c1c; padding: .1rem .35rem; font-size: .9em; }
 .docs-code { overflow-x: auto; margin: 1.5rem 0; border: 1px solid #27272a; border-radius: .75rem; background: #18181b; padding: 1.25rem; color: #f4f4f5; font-size: .9rem; line-height: 1.65; }
+.shiki code { display: block; }
+.shiki .line { display: block; min-height: 1lh; }
 .docs-table-wrap { max-width: 70ch; margin: 1.75rem 0 2rem; overflow-x: auto; border: 1px solid var(--line); }
 .docs-table { width: 100%; min-width: 34rem; border-collapse: collapse; text-align: left; font-size: .95rem; line-height: 1.55; }
 .docs-table-head { background: var(--wash); }
