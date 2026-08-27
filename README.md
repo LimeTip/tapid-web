@@ -19,7 +19,7 @@ curl -fsSL https://tapid.dev/install.sh | bash
 iwr -useb https://tapid.dev/install.ps1 | iex
 ```
 
-These default commands build Tapid from the `main` source branch locally. They are the development installation path until the repository publishes matching signed platform assets and checksum metadata. A specific release or source ref can still be selected through the installer options.
+These default commands install the latest stable Tapid release and verify its SHA-256 checksum. A specific stable version or development source ref can be selected through the installer options.
 
 ```text
 npm run lint
