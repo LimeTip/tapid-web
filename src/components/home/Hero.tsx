@@ -56,13 +56,7 @@ export default function Hero() {
           </div>
         </div>
       </div>
-      <div className="border-t border-neutral-800">
-        <div className="site-container grid divide-y divide-neutral-800 text-sm sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <div className="py-5 pr-6"><span className="text-neutral-500">built in</span><strong className="ml-3 font-mono font-normal text-white">Rust</strong></div>
-          <div className="py-5 sm:px-6"><span className="text-neutral-500">for</span><strong className="ml-3 font-mono font-normal text-white">JS + TS</strong></div>
-          <div className="py-5 sm:pl-6"><span className="text-neutral-500">next boundary</span><strong className="ml-3 font-mono font-normal text-white">resolution</strong></div>
-        </div>
-      </div>
+
     </section>
   );
 }
