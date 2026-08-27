@@ -11,12 +11,15 @@ npm run dev
 
 The site is currently exported as static content for Cloudflare Pages. The public installer endpoints are emitted from `public/` at the site root:
 
-```text
+```bash
 curl -fsSL https://tapid.dev/install.sh | bash
+```
+
+```powershell
 iwr -useb https://tapid.dev/install.ps1 | iex
 ```
 
-The scripts select the latest stable GitHub release and verify its SHA-256 checksum before replacing the installed binary. A stable release with the documented assets must exist before the default commands can install successfully. For development installation from a source ref, use the installer options documented in the Tapid CLI repository.
+These default commands build Tapid from the `main` source branch locally. They are the development installation path until the repository publishes matching signed platform assets and checksum metadata. A specific release or source ref can still be selected through the installer options.
 
 ```text
 npm run lint

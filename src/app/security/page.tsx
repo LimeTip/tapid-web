@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import ArrowLink from "@/components/ui/ArrowLink";
 
 const sections: Array<[string, ReactNode]> = [
   ["Evidence before trust", <>Package facts should appear before a trust decision. The planned record separates publisher context, provenance, release changes, and capability signals from the policy that acts on them. See <Link href="/docs/concepts/evidence-and-policy/" className="underline decoration-lime-500 decoration-2 underline-offset-4 hover:text-lime-700">evidence and policy</Link>.</>],
@@ -20,14 +21,19 @@ export default function SecurityPage() {
         </div>
       </section>
       <section className="site-container py-24 md:py-32">
-        <div className="max-w-4xl divide-y divide-[#e9e9e7] border-y border-[#e9e9e7]">
+        <div className="max-w-3xl">
+          <p className="text-xl leading-8 text-neutral-700">Security starts with a package decision, not with a badge. The model below follows the path from evidence about an artifact to the rule that determines whether an operation can continue.</p>
+          <p className="mt-5 text-base leading-7 text-neutral-600">Read the sections in order when you want the complete model. Follow the linked documentation when you need the underlying concept or planned command behavior.</p>
+        </div>
+        <div className="mt-16 max-w-4xl space-y-12">
           {sections.map(([title, description]) => (
-            <div key={title} className="py-8 md:grid md:grid-cols-[240px_1fr] md:gap-10">
+            <div key={title} className="md:grid md:grid-cols-[240px_1fr] md:gap-10">
               <h2 className="text-2xl font-semibold tracking-[-.035em]">{title}</h2>
               <p className="mt-4 max-w-2xl text-base leading-7 text-neutral-600 md:mt-0">{description}</p>
             </div>
           ))}
         </div>
+        <div className="mt-16"><ArrowLink href="/docs/concepts/evidence-and-policy/">Read the evidence and policy model</ArrowLink></div>
       </section>
     </main>
   );

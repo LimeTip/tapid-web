@@ -1,20 +1,25 @@
 # Tapid documentation
 
-Tapid is a package manager and registry project in design and planning. This documentation describes the problem it is trying to solve, the system it is intended to become, and the parts that do not exist yet.
+Tapid is a package manager and registry project in design and planning. These docs follow one question from beginning to end: how can a JavaScript or TypeScript project understand the exact code it is about to run, and the policy decision that governs it?
 
-## Read this first
+The pages describe the problem, the intended model, and the current implementation boundary. Planned behavior is labeled as planned. Nothing here should be read as proof that the client, resolver, verification store, or execution controls already exist.
 
-- [Getting started](/docs/getting-started/) explains the first client milestone and the current boundary of the project.
-- [Package identity](/docs/concepts/package-identity/) explains why a package name is not enough to identify code.
-- [Evidence and policy](/docs/concepts/evidence-and-policy/) explains the difference between facts and decisions.
+## Start with the problem
 
-## Follow the flow
+Begin with [Getting started](/docs/getting-started/) to understand what Tapid is trying to answer, what exists today, and what is planned next. Then read [Package identity](/docs/concepts/package-identity/) to see why a package name alone is not enough to identify code.
 
-- [Install and execute](/docs/guides/install-and-execute/) follows a package from request to install or one-shot execution.
-- [Agent-safe commands](/docs/guides/agent-safe-commands/) describes the context an agent should receive before it runs a package-backed command.
-- [Commands](/docs/commands/) lists the planned client commands.
+That gives the request a concrete target: a package, version, registry, and artifact digest that another person or system can inspect.
 
-## Read the reference
+## Follow one package decision
 
-- [Registries and publishing](/docs/reference/registries-and-publishing/) describes public and private registry boundaries and future publishing rules.
-- [Security model](/security/) explains the security principles used by the website and product plan.
+Once the target is clear, [Evidence and policy](/docs/concepts/evidence-and-policy/) explains the difference between facts and decisions. [Install and execute](/docs/guides/install-and-execute/) follows those facts through the planned flow from resolution to installation or one-shot execution.
+
+If the operation is being prepared or launched by an agent, continue with [Agent-safe commands](/docs/guides/agent-safe-commands/). The [Commands](/docs/commands/) reference then collects the planned command surface and its intended safeguards.
+
+## Look up the system boundaries
+
+Use [Registries and publishing](/docs/reference/registries-and-publishing/) when the question involves public or private registry routing, credentials, publishing context, or release history. Use the [Security model](/security/) when you need the principles behind evidence, policy, execution boundaries, and independent verification.
+
+## Where to go next
+
+If you are evaluating direction, read the [roadmap](/roadmap/) after the getting-started page. If you are reviewing the trust model, start with [evidence and policy](/docs/concepts/evidence-and-policy/) and continue to the [security model](/security/).

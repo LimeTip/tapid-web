@@ -7,6 +7,7 @@ export default function HomePage() {
   return (
     <main>
       <Hero />
+
       <EvidenceSection />
       <WorkflowSection />
       <DirectionSection />
