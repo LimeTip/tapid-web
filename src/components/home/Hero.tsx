@@ -13,7 +13,7 @@ export default function Hero() {
       <div className="site-container grid gap-14 pb-16 pt-16 md:pb-24 md:pt-24 lg:grid-cols-[minmax(0,1fr)_minmax(25rem,0.72fr)] lg:items-end lg:gap-20">
         <div>
           <h1 className="max-w-4xl text-[3.6rem] font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-7xl lg:text-[7.2rem]">
-            A package manager for JavaScript and TypeScript.
+            Package management with clear evidence.
           </h1>
           <p className="mt-9 max-w-xl text-lg leading-8 text-neutral-300 sm:text-xl">
             Tapid is a JavaScript and TypeScript package manager written in Rust. It makes package identity, install evidence, and execution boundaries visible instead of leaving them implicit.
