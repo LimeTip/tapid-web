@@ -1,0 +1,16 @@
+{
+  "defaults": {
+    "standard": "WCAG2AA",
+    "timeout": 30000,
+    "wait": 1000,
+    "runners": ["htmlcs"]
+  },
+  "urls": [
+    "http://127.0.0.1:4173/",
+    "http://127.0.0.1:4173/docs/",
+    "http://127.0.0.1:4173/docs/commands/",
+    "http://127.0.0.1:4173/docs/getting-started/",
+    "http://127.0.0.1:4173/docs/concepts/package-identity/",
+    "http://127.0.0.1:4173/docs/concepts/evidence-and-policy/"
+  ]
+}
