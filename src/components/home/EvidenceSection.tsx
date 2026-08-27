@@ -5,7 +5,7 @@ import ArrowLink from "@/components/ui/ArrowLink";
 const checks = [
   ["manifest", "rootManifestDigest matches package.json"],
   ["lockfile", "lockfileVersion 3 accepted for replay"],
-  ["store", "verified trees available before staging"],
+  ["store", "verified store inputs before staging"],
   ["lifecycle", "dependency scripts suppressed during install"],
 ];
 
