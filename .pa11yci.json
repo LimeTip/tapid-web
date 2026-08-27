@@ -3,7 +3,10 @@
     "standard": "WCAG2AA",
     "timeout": 30000,
     "wait": 1000,
-    "runners": ["htmlcs"]
+    "runners": ["htmlcs"],
+    "chromeLaunchConfig": {
+      "args": ["--no-sandbox"]
+    }
   },
   "urls": [
     "http://127.0.0.1:4173/",
