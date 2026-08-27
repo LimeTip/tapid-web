@@ -12,12 +12,12 @@ export default function Footer() {
             <span className="font-semibold tracking-[-0.04em]">tapid</span>
           </div>
           <p className="mt-4 max-w-md text-sm leading-6 text-neutral-600">
-            Package management with evidence you can inspect. Tapid is developed and maintained by LimeTip.
+            JavaScript and TypeScript package management, with the current client written in Rust. Tapid is developed and maintained by LimeTip.
           </p>
         </div>
         <div className="flex flex-wrap gap-x-6 gap-y-3 text-sm text-neutral-600">
           <Link href="/docs" className="hover:text-lime-700">Documentation</Link>
-          <Link href="/security" className="hover:text-lime-700">Security</Link>
+          <Link href="/docs/concepts/evidence-and-policy/" className="hover:text-lime-700">Evidence and policy</Link>
           <Link href="https://limetip.com/privacy" target="_blank" rel="noreferrer" className="hover:text-lime-700">Privacy</Link>
           <Link href="https://limetip.com/terms" target="_blank" rel="noreferrer" className="hover:text-lime-700">Terms</Link>
           <Link href="https://limetip.com/contact" target="_blank" rel="noreferrer" className="hover:text-lime-700">Contact LimeTip</Link>

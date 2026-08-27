@@ -6,26 +6,26 @@ import "@/app/globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://tapid.dev"),
   title: {
-    default: "Tapid | Package management with evidence",
+    default: "Tapid | The package manager that shows its work",
     template: "%s | Tapid",
   },
   description:
-    "Tapid is a package manager and registry ecosystem for JavaScript and TypeScript, built around reproducible installs, explicit trust evidence, and safer execution.",
+    "Tapid is a JavaScript and TypeScript package manager written in Rust, with an inspectable lockfile replay and execution path.",
   applicationName: "Tapid",
   authors: [{ name: "LimeTip" }],
   openGraph: {
-    title: "Tapid | Package management with evidence",
+    title: "Tapid | The package manager that shows its work",
     description:
-      "See what will run, who published it, what changed, and why Tapid made its policy decision.",
+      "A JavaScript and TypeScript package manager written in Rust, built around inspectable project behavior.",
     url: "https://tapid.dev",
     siteName: "Tapid",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tapid | Package management with evidence",
+    title: "Tapid | The package manager that shows its work",
     description:
-      "A safer and more explainable package manager and registry for JavaScript and TypeScript.",
+      "An inspectable JavaScript and TypeScript package manager written in Rust.",
   },
 };
 

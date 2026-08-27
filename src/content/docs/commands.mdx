@@ -67,8 +67,8 @@ The fixture also checks argument forwarding, child exit-code propagation, execut
 
 ## Not available yet
 
-The current client does not implement `tapid add`, `tapid remove`, `tapid update`, `tapid prune`, `tapid audit`, `tapid x`, workspaces, complete npm lockfile compatibility, private-registry authentication, script approval, or publishing. See [supported compatibility](https://github.com/LimeTip/tapid/blob/main/docs/compatibility.md) and the [roadmap](/roadmap/) for the current boundary.
+The current client does not implement `tapid add`, `tapid remove`, `tapid update`, `tapid prune`, `tapid audit`, `tapid x`, workspaces, complete npm lockfile compatibility, private-registry authentication, script approval, or publishing. See [supported compatibility](https://github.com/LimeTip/tapid/blob/main/docs/compatibility.md) and [Getting started](/docs/getting-started/) for the current boundary.
 
 The intended package-facing command is `tapid install <package-spec>`, for example `tapid install is-char`. The current parser rejects that positional argument with exit code `2`; package resolution is not implemented yet.
 
-[Getting started](/docs/getting-started/) · [Install and execute](/docs/guides/install-and-execute/) · [Security model](/security/)
+[Getting started](/docs/getting-started/) · [Package identity](/docs/concepts/package-identity/) · [Evidence and policy](/docs/concepts/evidence-and-policy/)

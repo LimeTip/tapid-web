@@ -1,12 +1,12 @@
 # Getting started
 
-Tapid is a JavaScript and TypeScript package manager written in Rust. The current client is a limited development slice, not a production-ready replacement for npm or pnpm.
+Tapid is a JavaScript and TypeScript package manager written in Rust. The current client is an early, inspectable implementation, not a drop-in replacement for npm or pnpm.
 
-The useful distinction is simple: the CLI already supports deterministic local installation and lockfile replay, while broader online npm compatibility, publishing, evidence-aware policy, and agent integrations remain planned or incomplete.
+The useful path today is a project with a validated manifest, a checked-in `tapid.lock`, and verified store content. Tapid validates those inputs before activating managed `node_modules`, then runs root scripts only when you explicitly ask it to.
 
 ## Try the implemented path
 
-The repository contains a consumer fixture that exercises the current install and run behavior without depending on a live registry.
+From the Tapid repository, build the CLI and create the same consumer fixture used by the integration tests:
 
 ```bash
 cargo build -p tapid --locked
@@ -18,18 +18,9 @@ target/debug/tapid install --offline --frozen --project-dir "$TAPID_FIXTURE_PROJ
 target/debug/tapid run --project-dir "$TAPID_FIXTURE_PROJECT" test -- forwarded 0
 ```
 
-A local macOS run produced:
+The fixture checks managed `node_modules`, root-script execution, argument forwarding, child exit-code propagation, executable metadata, and suppression of dependency lifecycle scripts. Its empty package graph is a test boundary, not evidence of general package installation.
 
-```text
-Replayed lockfile: 0 package(s)
-Verified: node_modules created; dependency lifecycle marker absent.
-```
-
-The fixture checks managed `node_modules`, root-script execution, argument forwarding, child exit-code propagation, executable metadata, and suppression of the dependency lifecycle marker. This is evidence for the fixture path only, not a claim that general npm installation is production-ready.
-
-## What the current client answers
-
-For the implemented path, Tapid can answer:
+## What the current client can answer
 
 - Can this project replay its existing lockfile without network access?
 - Does the lockfile's manifest and store content validate before activation?
@@ -38,12 +29,40 @@ For the implemented path, Tapid can answer:
 - Does the child process exit code return to the caller?
 - Were dependency lifecycle scripts suppressed during install?
 
-## What is not implemented yet
+The online registry path is deliberately constrained. Tapid requires registry metadata with the dependency and integrity information needed to construct a verified graph, and fails closed when those requirements are not met.
 
-The current client does not provide complete npm range compatibility, aliases, tags, git/file/workspace specs, peer resolution, workspaces, private-registry authentication, package publishing, an audit command, an agent runner, a sandbox, or process capability enforcement.
+## The command developers want next
 
-The website and documentation describe those areas only as planned or future direction. See [Commands](/docs/commands/) for the current command surface and the [roadmap](/roadmap/) for sequencing.
+This is the intended package-facing shape, but it is not accepted by the current CLI:
 
-## Follow the model
+```text
+tapid install is-char
+tapid i is-char
+```
 
-Read [Package identity](/docs/concepts/package-identity/) to understand why a name and version range are not enough to identify an artifact. Then read [Evidence and policy](/docs/concepts/evidence-and-policy/) for the planned decision model, or [Install and execute](/docs/guides/install-and-execute/) for the boundary between implemented replay and planned online workflows.
+The current parser rejects the positional package name. Package-spec parsing, complete dependency resolution, lockfile generation, and the resulting package installation flow are still implementation work.
+
+## Run a project script
+
+`tapid run <script>` reads a root `package.json` script, runs it in the project directory, prepends the managed `node_modules/.bin` directory to `PATH`, forwards arguments after `--`, and returns the child exit status.
+
+```bash
+tapid run dev
+tapid run test -- --runInBand
+```
+
+Root scripts can execute arbitrary project code through the platform shell. This is compatibility-oriented process execution, not a sandbox.
+
+## Current status and direction
+
+| Area | Status | What is true today |
+| --- | --- | --- |
+| Manifest validation | Implemented | `package.json` identity is validated before project work. |
+| Lockfile replay | Implemented | Offline and frozen replay require the lockfile and verified store inputs. |
+| Node-compatible linking | Implemented | Managed package files and executable metadata are materialized for the supported path. |
+| Root scripts | Implemented with constraints | Explicit `tapid run` works, but it is not sandboxed. |
+| Package-spec installation | Not currently supported | `tapid install is-char` and `tapid i is-char` are planned CLI shapes. |
+| Full npm compatibility | In progress | Semver edge cases, aliases, tags, peers, workspaces, and other behaviors remain incomplete. |
+| Registry publishing and policy | Future direction | Registry services, provenance verification, policy enforcement, and agent integration are not current client guarantees. |
+
+Continue with [Commands](/docs/commands/) for the actual CLI surface, then read [Package identity](/docs/concepts/package-identity/) and [Evidence and policy](/docs/concepts/evidence-and-policy/) for the models behind the next implementation work.

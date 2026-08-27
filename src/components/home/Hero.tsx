@@ -1,54 +1,66 @@
 import Link from "next/link";
 import { Button } from "@base-ui/react/button";
 
-const facts = [
+const checks = [
   ["manifest", "package.json validated"],
-  ["install", "lockfile replay implemented"],
-  ["execution", "explicit root scripts"],
-  ["safety", "dependency lifecycle scripts suppressed"],
+  ["lockfile", "offline replay implemented"],
+  ["scripts", "explicit root execution"],
 ];
 
 export default function Hero() {
   return (
-    <section className="overflow-hidden bg-neutral-950 text-white">
-      <div className="site-container grid min-h-[680px] items-end gap-12 pb-16 pt-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(32rem,1.1fr)] lg:gap-20 lg:pb-24 lg:pt-24">
-        <div className="pb-2">
-          <h1 className="max-w-3xl text-6xl font-semibold leading-[0.92] tracking-[-0.07em] text-white sm:text-7xl lg:text-[6.8rem]">
-            Install with<br />receipts.
+    <section className="hero-grid overflow-hidden bg-neutral-950 text-white">
+      <div className="site-container grid gap-14 pb-16 pt-16 md:pb-24 md:pt-24 lg:grid-cols-[minmax(0,1fr)_minmax(25rem,0.72fr)] lg:items-end lg:gap-20">
+        <div>
+          <h1 className="max-w-4xl text-[3.6rem] font-semibold leading-[0.9] tracking-[-0.075em] text-white sm:text-7xl lg:text-[7.2rem]">
+            The package manager that shows its work.
           </h1>
           <p className="mt-9 max-w-xl text-lg leading-8 text-neutral-300 sm:text-xl">
-            A JavaScript and TypeScript package manager built around the moment that matters: knowing which artifact entered your project, why it was accepted, and what the command actually did. Written in Rust.
+            Tapid is a JavaScript and TypeScript package manager written in Rust. It makes package identity, install evidence, and execution boundaries visible instead of leaving them implicit.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <Button render={<Link href="/docs/getting-started/" />} className="inline-flex h-12 items-center justify-center bg-lime-300 px-6 text-base font-semibold text-neutral-950 transition-colors hover:bg-lime-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">
-              Read the current implementation
+            <Button render={<Link href="/docs/getting-started/" />} className="inline-flex min-h-12 items-center justify-center bg-lime-300 px-6 text-base font-semibold text-neutral-950 transition-colors hover:bg-lime-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">
+              Read the current path
             </Button>
-            <Link href="/docs/commands/" className="font-medium text-white underline decoration-neutral-500 decoration-2 underline-offset-4 transition-colors hover:text-lime-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">
-              See the CLI surface <span aria-hidden="true">↗</span>
+            <Link href="/docs/commands/" className="font-medium text-white underline decoration-neutral-600 decoration-2 underline-offset-4 transition-colors hover:text-lime-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">
+              Inspect the CLI <span aria-hidden="true">↗</span>
             </Link>
           </div>
         </div>
-        <div className="border-t border-neutral-800 lg:mb-3">
-          <div className="flex items-center justify-between border-b border-neutral-800 py-4 text-sm">
-            <span className="font-mono text-neutral-400">current implementation</span>
-            <span className="text-neutral-500">verified from the repository</span>
+
+        <div className="border border-neutral-700 bg-neutral-900/80">
+          <div className="flex items-center justify-between border-b border-neutral-700 px-5 py-4 font-mono text-xs">
+            <span className="text-neutral-300">tapid / command surface</span>
+            <span className="text-neutral-500">current CLI</span>
           </div>
-          <div className="divide-y divide-neutral-800">
-            {facts.map(([label, detail]) => (
-              <div key={label} className="grid grid-cols-[7.5rem_1fr] gap-4 py-5 text-sm sm:grid-cols-[9rem_1fr]">
-                <span className="font-mono text-neutral-500">{label}</span>
-                <span className="text-neutral-200">{detail}</span>
+          <div className="space-y-6 p-5 sm:p-6">
+            <div className="font-mono text-sm leading-7">
+              <p className="m-0 text-neutral-500"><span className="text-lime-300">$</span> tapid install is-char</p>
+              <p className="m-0 text-amber-300">error: package argument not implemented</p>
+              <p className="m-0 pt-2 text-xs leading-5 text-neutral-500">The intended package-facing command. Resolution is the next implementation gap.</p>
+            </div>
+            <div className="border-t border-neutral-700 pt-5">
+              <p className="m-0 font-mono text-xs text-neutral-500">verified project behavior</p>
+              <div className="mt-4 space-y-3">
+                {checks.map(([label, value]) => (
+                  <div key={label} className="grid grid-cols-[5.5rem_1fr] gap-3 text-sm">
+                    <span className="font-mono text-neutral-500">{label}</span>
+                    <span className="text-neutral-200">{value}</span>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
-          <p className="mt-5 max-w-lg text-sm leading-6 text-neutral-500">Package-facing installation, online resolution, and complete npm compatibility are not available in the current CLI yet.</p>
+          <div className="border-t border-neutral-700 px-5 py-4 text-xs leading-5 text-neutral-500 sm:px-6">
+            No fabricated install result. The current evidence is a project replay, not package resolution.
+          </div>
         </div>
       </div>
       <div className="border-t border-neutral-800">
         <div className="site-container grid divide-y divide-neutral-800 text-sm sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          <div className="py-5 pr-6"><span className="text-neutral-500">implemented</span><strong className="ml-3 font-mono font-normal text-white">lockfile replay</strong></div>
-          <div className="py-5 sm:px-6"><span className="text-neutral-500">verified</span><strong className="ml-3 font-mono font-normal text-white">lifecycle suppression</strong></div>
-          <div className="py-5 sm:pl-6"><span className="text-neutral-500">next gap</span><strong className="ml-3 font-mono font-normal text-white">package resolution</strong></div>
+          <div className="py-5 pr-6"><span className="text-neutral-500">built in</span><strong className="ml-3 font-mono font-normal text-white">Rust</strong></div>
+          <div className="py-5 sm:px-6"><span className="text-neutral-500">for</span><strong className="ml-3 font-mono font-normal text-white">JS + TS</strong></div>
+          <div className="py-5 sm:pl-6"><span className="text-neutral-500">next boundary</span><strong className="ml-3 font-mono font-normal text-white">resolution</strong></div>
         </div>
       </div>
     </section>
