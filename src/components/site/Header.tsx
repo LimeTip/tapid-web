@@ -29,7 +29,7 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
-          <Button render={<Link href="/docs" />} className="bg-lime-700 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-lime-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">Read the docs</Button>
+          <Button render={<Link href="/docs" />} className="bg-lime-400 px-5 py-2.5 text-sm font-semibold !text-neutral-950 transition hover:bg-lime-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">Read the docs</Button>
         </div>
         <div className="md:hidden">
           <Collapsible.Trigger className="px-3 py-2 text-sm font-semibold text-neutral-200 hover:bg-neutral-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">

@@ -19,7 +19,7 @@ export default function Hero() {
             Tapid is a JavaScript and TypeScript package manager written in Rust. It makes package identity, install evidence, and execution boundaries visible instead of leaving them implicit.
           </p>
           <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <Button render={<Link href="/docs/getting-started/" />} className="inline-flex min-h-12 items-center justify-center bg-lime-700 px-6 text-base font-semibold text-white transition-colors hover:bg-lime-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">
+            <Button render={<Link href="/docs/getting-started/" />} className="inline-flex min-h-12 items-center justify-center bg-lime-400 px-6 text-base font-semibold !text-neutral-950 transition-colors hover:bg-lime-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">
               Read the current path
             </Button>
             <Link href="/docs/commands/" className="font-medium text-white underline decoration-neutral-600 decoration-2 underline-offset-4 transition-colors hover:text-lime-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">
