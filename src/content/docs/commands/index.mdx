@@ -1,0 +1,35 @@
+---
+title: Commands
+description: The Tapid CLI, organised by command and implementation status.
+---
+
+Tapid's CLI is intentionally explicit. Each command has a narrow responsibility, documented inputs, and a clear boundary when the current client cannot complete an operation.
+
+## Command reference
+
+- [`tapid init`](/docs/commands/init/) creates a private `package.json` without overwriting an existing file.
+- [`tapid manifest validate`](/docs/commands/manifest-validate/) validates a selected manifest before project work.
+- [`tapid lock verify`](/docs/commands/lock-verify/) validates the lockfile in the current project.
+- [`tapid install`](/docs/commands/install/) replays or installs project dependencies through the currently supported paths.
+- [`tapid run`](/docs/commands/run/) runs an explicit root `package.json` script and forwards arguments.
+- [`tapid upgrade`](/docs/commands/upgrade/) inspects and applies a verified stable Tapid release.
+
+## Status language
+
+Each page labels behavior as **implemented**, **constrained**, or **not currently supported**. A command can be implemented while still having important limits. The examples are therefore separated from planned package-management behavior.
+
+## Typical project path
+
+The supported local path is a validated project with a checked-in `tapid.lock` and verified store content:
+
+```bash
+cargo build -p tapid --locked
+export GITHUB_ENV="$(mktemp)"
+node tests/fixtures/create_consumer_project.js
+. "$GITHUB_ENV"
+export TAPID_FIXTURE=1
+target/debug/tapid install --offline --frozen --project-dir "$TAPID_FIXTURE_PROJECT"
+target/debug/tapid run --project-dir "$TAPID_FIXTURE_PROJECT" test -- forwarded 0
+```
+
+This fixture path exercises deterministic replay, managed `node_modules`, root-script execution, argument forwarding, exit-code propagation, executable metadata, and lifecycle suppression. Its empty package graph is a test boundary, not evidence of general package installation.

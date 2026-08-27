@@ -1,0 +1,27 @@
+---
+title: tapid upgrade
+description: Inspect and apply a verified stable Tapid release.
+---
+
+## Syntax
+
+```text
+tapid upgrade [OPTIONS]
+```
+
+Upgrade Tapid from a verified stable release. The command is designed to fail closed when release metadata, signatures, or trusted key material are missing or invalid.
+
+## Options
+
+```text
+--endpoint HTTPS_URL
+--keyring PATH
+--destination PATH
+--dry-run
+```
+
+`--dry-run` inspects and verifies the candidate without replacing the executable. A trusted keyring is required. The upgrade path does not use `main` as an implicit release source.
+
+## Status
+
+The command is part of the current CLI surface, but a successful upgrade still depends on a compatible stable release manifest, trusted keyring, and available release artifacts. Do not treat source builds or development branches as stable release evidence.

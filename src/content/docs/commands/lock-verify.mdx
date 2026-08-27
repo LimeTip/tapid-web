@@ -1,0 +1,22 @@
+---
+title: tapid lock verify
+description: Validate tapid.lock before replay.
+---
+
+## Syntax
+
+```text
+tapid lock verify
+```
+
+Validate `tapid.lock` in the current project. The lockfile binds the project manifest to the dependency graph and verified tree inputs used during replay.
+
+## When to use it
+
+Run this before an offline or frozen install when you want a separate validation step:
+
+```text
+$ tapid lock verify
+```
+
+The command is implemented for the current project path. It does not fetch registry metadata and it does not create a missing lockfile.

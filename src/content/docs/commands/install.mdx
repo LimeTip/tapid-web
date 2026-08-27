@@ -1,0 +1,54 @@
+---
+title: tapid install
+description: Replay or install project dependencies through the supported paths.
+---
+
+## Syntax
+
+```text
+tapid install [PACKAGE] [OPTIONS]
+```
+
+The current install command has two different paths. The project replay path is implemented and verified. The package-facing path is present in the command shape but remains constrained by package-spec parsing, dependency resolution, lockfile generation, and registry integrity requirements.
+
+## Project replay
+
+Use offline or frozen mode to replay an existing project lockfile without network resolution:
+
+```bash
+tapid install --offline --frozen --project-dir ./example
+```
+
+The project must provide a valid `package.json`, a compatible `tapid.lock`, and the verified store inputs required by the lockfile. Tapid validates these inputs before activating managed `node_modules`.
+
+The repository fixture verifies deterministic replay, managed files, executable metadata, root-script behavior, argument forwarding, exit-code propagation, and dependency lifecycle suppression.
+
+## Options
+
+```text
+--offline
+--frozen
+--project-dir PATH
+--store-dir PATH
+--registry-fixture PATH
+--allow-unverified-registry-artifacts
+```
+
+`--registry-fixture` is for tests and air-gapped development. It is not a production registry mirror or authentication feature.
+
+`--allow-unverified-registry-artifacts` is an explicit compatibility escape hatch. It cannot be combined with `--offline` or `--frozen`.
+
+## Package argument status
+
+The intended package-facing shape is:
+
+```text
+tapid install <package-spec>
+tapid i <package-spec>
+```
+
+A package argument may be accepted by the current parser, but complete package installation still depends on package-spec handling, registry metadata, verified integrity, dependency graph resolution, and lockfile generation. Treat package installation as constrained until the complete flow is verified end to end.
+
+## What install does not guarantee
+
+A successful fixture replay is not evidence of general npm compatibility, registry-wide package installation, publishing, private-registry authentication, or a sandboxed script runner.
