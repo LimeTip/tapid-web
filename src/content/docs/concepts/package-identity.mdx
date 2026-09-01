@@ -24,16 +24,17 @@ The range is a constraint. The resolved release is a selection. The artifact dig
 
 A later offline or frozen operation should not resolve the request again. It should validate the lockfile's manifest digest, package identities, tree digests, and verified store content before activating managed `node_modules`.
 
-That behavior is implemented for the current replay path. The client prints:
+That behavior is implemented for populated projects. A registry-backed install and replay print:
 
 ```text
-Replayed lockfile: 0 package(s)
+Installed 1 package(s)
+Replayed lockfile: 1 package(s)
 ```
 
-The fixture used for this check contains an empty package set, so the output is not an example of a populated dependency graph. It is evidence that the replay path validated and activated the fixture project.
+The lockfile schema records the registry-qualified package identity, exact version, artifact integrity, integrity provenance, verified tree digest, dependency edges, and root selections needed for replay.
 
 ## What is implemented and what is planned
 
-The current CLI has lockfile validation and deterministic replay. It does not yet provide the complete package identity and evidence view described by the product direction. Registry-wide publisher provenance, independent artifact verification, private-registry routing, and policy decisions remain planned or incomplete.
+The current CLI resolves and installs a bounded npm-compatible subset, validates schema-6 lockfiles, and supports deterministic replay from verified store trees. Registry-wide publisher provenance, private-registry authentication, complete npm compatibility, and user-facing policy decisions remain planned or incomplete.
 
 Read [Evidence and policy](/docs/concepts/evidence-and-policy/) to see how an exact identity would feed a decision, then return to [Getting started](/docs/getting-started/) for the supported replay command and current status.

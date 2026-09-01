@@ -11,7 +11,7 @@ jobs:
   pa11y:
     name: WCAG contrast and accessibility scan
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -34,4 +34,4 @@ jobs:
           server_pid=$!
           trap 'kill "$server_pid"' EXIT
           curl --fail --retry 10 --retry-delay 1 --retry-connrefused http://127.0.0.1:4173/
-          npx --yes pa11y-ci@4.0.1 --config .pa11yci.json
+          PUPPETEER_SKIP_DOWNLOAD=true PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome npx --yes pa11y-ci@4.0.1 --config .pa11yci.json

@@ -25,18 +25,18 @@ Tapid should not compress uncertainty into an unexplained safety score. A useful
 
 The current client validates lockfile replay, verifies the supported store inputs, materializes managed `node_modules`, and suppresses dependency lifecycle scripts during install. It does not yet provide an evidence service, publisher provenance verification, a policy engine, a sandbox, or runtime capability enforcement.
 
-The local fixture checks this narrow boundary:
+The registry-backed consumer path demonstrates this boundary:
 
 ```text
-Replayed lockfile: 0 package(s)
-Verified: node_modules created; dependency lifecycle marker absent.
+Installed 1 package(s)
+Replayed lockfile: 1 package(s)
 ```
 
-That output demonstrates a test path. It is not a security verdict about arbitrary packages.
+That output demonstrates installation and deterministic replay. It is not a security verdict about the installed package.
 
 ## Registry and publishing boundary
 
-The current client supports a local JSON registry fixture for tests and air-gapped development. It does not provide private-registry authentication, publishing, a discovery service, or a complete public npm compatibility surface.
+The current client supports npm registry metadata and artifacts for a documented compatibility subset, plus local fixtures for deterministic testing. It does not provide private-registry authentication, package publishing, a Tapid discovery service, or complete npm compatibility.
 
 Future registry routing should make the source explicit. A private scope should not fall through to a public registry because a configuration entry is missing. Credentials should stay within the registry boundary that needs them and should never be silently sent to another origin.
 

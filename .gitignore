@@ -14,3 +14,5 @@ temp/
 !.env.example
 .DS_Store
 *.log
+.tapid-activation.lock
+.tapid-managed

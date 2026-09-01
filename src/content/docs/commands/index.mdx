@@ -16,20 +16,18 @@ Tapid's CLI is intentionally explicit. Each command has a narrow responsibility,
 
 ## Status language
 
-Each page labels behavior as **implemented**, **constrained**, or **not currently supported**. A command can be implemented while still having important limits. The examples are therefore separated from planned package-management behavior.
+Each page labels behavior as **implemented**, **constrained**, or **not currently supported**. A command can be implemented while still having important limits. Examples stay within the behavior verified for the current release.
 
 ## Typical project path
 
-The supported local path is a validated project with a checked-in `tapid.lock` and verified store content:
+Install the latest stable binary, create a project, and install a package:
 
 ```bash
-cargo build -p tapid --locked
-export GITHUB_ENV="$(mktemp)"
-node tests/fixtures/create_consumer_project.js
-. "$GITHUB_ENV"
-export TAPID_FIXTURE=1
-target/debug/tapid install --offline --frozen --project-dir "$TAPID_FIXTURE_PROJECT"
-target/debug/tapid run --project-dir "$TAPID_FIXTURE_PROJECT" test -- forwarded 0
+curl -fsSL https://tapid.dev/install.sh | bash
+tapid init demo
+cd demo
+tapid install is-char
+tapid install --frozen
 ```
 
-This fixture path exercises deterministic replay, managed `node_modules`, root-script execution, argument forwarding, exit-code propagation, executable metadata, and lifecycle suppression. Its empty package graph is a test boundary, not evidence of general package installation.
+Tapid 0.0.7 supports a bounded npm-compatible subset. Read the install command page before migrating a project that depends on tags, aliases, peers, workspaces, private registries, lifecycle scripts, or other npm-specific behavior.

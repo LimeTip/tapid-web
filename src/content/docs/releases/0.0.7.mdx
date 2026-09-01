@@ -1,0 +1,37 @@
+---
+title: Tapid 0.0.7
+description: Registry-backed installation, schema-6 lockfiles, and signed release delivery.
+---
+
+Tapid 0.0.7 connects the consumer path to supported npm registry metadata and artifacts. It resolves transitive dependencies deterministically, verifies registry-declared SHA-512 integrity, writes a schema-6 `tapid.lock`, stores verified trees outside the project by default, and materializes managed `node_modules` without running dependency lifecycle scripts.
+
+## Install
+
+On macOS and Linux:
+
+```sh
+curl -fsSL https://tapid.dev/install.sh | bash
+```
+
+On Windows PowerShell:
+
+```powershell
+iwr -useb https://tapid.dev/install.ps1 | iex
+```
+
+These commands use the latest signed stable release. The website publishes this page only after the signed `v0.0.7` manifest and all advertised platform archives are available.
+
+## Lockfile migration
+
+Schema 5 lockfiles must be regenerated online because schema 6 records whether package integrity came from registry metadata. Schema 4 remains a controlled compatibility path with narrower identity and replay rules.
+
+```sh
+tapid install
+tapid lock verify
+```
+
+## Current limits
+
+Tapid implements an npm-compatible subset rather than complete npm behavior. Tags, aliases, peer resolution, workspaces, private-registry authentication, lifecycle-script approval, and several package-management commands remain incomplete. Dependency lifecycle scripts stay disabled by default.
+
+See the canonical [repository release notes](https://github.com/LimeTip/tapid/blob/main/docs/releases/0.0.7.md) for the complete implementation details.

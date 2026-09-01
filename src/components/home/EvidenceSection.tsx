@@ -4,8 +4,8 @@ import ArrowLink from "@/components/ui/ArrowLink";
 
 const checks = [
   ["manifest", "rootManifestDigest matches package.json"],
-  ["lockfile", "lockfileVersion 3 accepted for replay"],
-  ["store", "verified store inputs before staging"],
+  ["lockfile", "schema 6 records exact identity and integrity provenance"],
+  ["store", "verified external store trees before staging"],
   ["lifecycle", "dependency scripts suppressed during install"],
 ];
 
@@ -20,7 +20,7 @@ export default function EvidenceSection() {
           </SectionHeading>
           <div>
             <div className="border-y border-neutral-800 py-5">
-              <p className="m-0 text-sm leading-6 text-neutral-300">The current fixture run produced a verified empty project replay. It proves the activation and lifecycle boundary, but it does not prove package installation.</p>
+              <p className="m-0 text-sm leading-6 text-neutral-300">The current npm path resolves supported transitive dependencies, verifies registry-declared artifact integrity, materializes managed output, and replays it from the lockfile without running dependency lifecycle scripts.</p>
             </div>
             <div className="mt-8 grid gap-x-8 gap-y-6 sm:grid-cols-2">
               {checks.map(([name, detail]) => (
@@ -33,7 +33,7 @@ export default function EvidenceSection() {
           </div>
         </div>
         <div className="mt-14 flex flex-wrap items-center justify-between gap-5 border-t border-neutral-800 pt-6">
-          <p className="m-0 font-mono text-xs text-neutral-400">fixture-backed behavior, not a package install demo</p>
+          <p className="m-0 font-mono text-xs text-neutral-400">registry-backed installation with explicit compatibility limits</p>
           <ArrowLink href="/docs/concepts/evidence-and-policy/">Read the evidence model</ArrowLink>
         </div>
       </div>

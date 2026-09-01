@@ -3,13 +3,13 @@ title: Tapid documentation
 description: A short map of the current Tapid client and its documentation.
 ---
 
-Tapid is a package manager and registry project in design and planning. These docs follow one question from beginning to end: how can a JavaScript or TypeScript project understand the exact code it is about to run, and the policy decision that governs it?
+Tapid is a JavaScript and TypeScript package manager written in Rust. These docs follow one question from beginning to end: how can a project understand the exact code it is about to install or run, and which trust boundaries apply?
 
-The pages describe the problem, the intended model, and the current implementation boundary. Planned behavior is labeled as planned. Nothing here should be read as proof that the client, resolver, verification store, or execution controls already exist.
+The current client resolves a documented npm-compatible subset, verifies package artifacts, records exact identities in `tapid.lock`, uses a content-addressed store, materializes `node_modules`, and runs root scripts explicitly. Planned behavior remains labeled as planned.
 
 ## Start with the problem
 
-Begin with [Getting started](/docs/getting-started/) to understand what Tapid is trying to answer, what exists today, and what is planned next. Then read [Package identity](/docs/concepts/package-identity/) to see why a package name alone is not enough to identify code.
+Begin with [Getting started](/docs/getting-started/) to install Tapid and exercise the supported package path. Then read [Package identity](/docs/concepts/package-identity/) to see why a package name alone is not enough to identify code.
 
 That gives the request a concrete target: a package, version, registry, and artifact digest that another person or system can inspect.
 
