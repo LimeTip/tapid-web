@@ -5,8 +5,8 @@ The public Tapid website and documentation, built with Next.js, Base UI, and MDX
 ## Development
 
 ```text
-npm install
-npm run dev
+tapid install
+tapid run dev
 ```
 
 The site is currently exported as static content for Cloudflare Pages. The public installer endpoints are emitted from `public/` at the site root:
@@ -19,12 +19,12 @@ curl -fsSL https://tapid.dev/install.sh | bash
 iwr -useb https://tapid.dev/install.ps1 | iex
 ```
 
-These default commands install the latest stable Tapid release and verify its SHA-256 checksum. A specific stable version or development source ref can be selected through the installer options.
+These default commands install the latest stable Tapid release. The installer verifies the signed release manifest, archive identity, SHA-256 hash, size, and structure before installing the binary. A specific stable version or development source ref can be selected through the installer options.
 
 ```text
-npm run lint
-npm run build
-npm run deploy
+tapid run lint
+tapid run build
+tapid run deploy
 ```
 
 ## Structure
@@ -45,4 +45,4 @@ Tapid is developed and maintained by LimeTip. The website links to LimeTip's mai
 - https://limetip.com/terms
 - https://limetip.com/contact
 
-The website is currently a design and planning site. It must not claim that Tapid is ready to install until the core implementation exists.
+Tapid 0.0.7 is experimental software with a documented npm-compatible subset. The website must keep implementation status and compatibility limits explicit.

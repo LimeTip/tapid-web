@@ -33,7 +33,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Prefer Base UI primitives for interactive behavior and avoid introducing custom components when an existing primitive or simple semantic markup is sufficient.
 - Apply the `unslop` skill to user-facing copy and documentation work: remove generic AI phrasing, puffery, formulaic structure, and vague claims while preserving the intended meaning and technical precision.
 - Use semantic HTML, responsive layouts, keyboard-accessible interactions, and reduced-motion behavior where appropriate.
-- Run the narrowest relevant check, then `npm run lint` and `npm run build` for material website changes.
+- Run the narrowest relevant check, then `tapid run lint` and `tapid run build` for material website changes.
 - Do not add secrets, credentials, customer data, or generated build output to the repository.
 
 ## Design feedback

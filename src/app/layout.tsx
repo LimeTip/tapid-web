@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | Tapid",
   },
   description:
-    "Tapid is a JavaScript and TypeScript package manager written in Rust, with an inspectable lockfile replay and execution path.",
+    "Tapid is a JavaScript and TypeScript package manager written in Rust, with verified package installation, inspectable lockfiles, and deterministic replay.",
   applicationName: "Tapid",
   authors: [{ name: "LimeTip" }],
   openGraph: {

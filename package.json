@@ -2,12 +2,13 @@
   "name": "tapid-web",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "tapid@0.0.7",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "deploy": "npm run build && wrangler pages deploy out"
+    "deploy": "tapid run build && wrangler pages deploy out"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

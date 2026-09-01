@@ -9,7 +9,15 @@ description: Replay or install project dependencies through the supported paths.
 tapid install [PACKAGE] [OPTIONS]
 ```
 
-The current install command has two different paths. The project replay path is implemented and verified. The package-facing path is present in the command shape but remains constrained by package-spec parsing, dependency resolution, lockfile generation, and registry integrity requirements.
+The install command can add one package or install the dependencies already declared in `package.json`. It resolves the supported npm-compatible subset, verifies registry-declared integrity, writes `tapid.lock`, stores verified package trees, and activates managed `node_modules`.
+
+```bash
+tapid install is-char
+tapid i is-char
+tapid install
+```
+
+Package arguments support unscoped names, scoped names, exact versions, and the `npm:` and `jsr:` prefixes where the underlying registry metadata satisfies Tapid's current trust and compatibility requirements.
 
 ## Project replay
 
@@ -38,17 +46,6 @@ The repository fixture verifies deterministic replay, managed files, executable 
 
 `--allow-unverified-registry-artifacts` is an explicit compatibility escape hatch. It cannot be combined with `--offline` or `--frozen`.
 
-## Package argument status
+## Current limits
 
-The intended package-facing shape is:
-
-```text
-tapid install <package-spec>
-tapid i <package-spec>
-```
-
-A package argument may be accepted by the current parser, but complete package installation still depends on package-spec handling, registry metadata, verified integrity, dependency graph resolution, and lockfile generation. Treat package installation as constrained until the complete flow is verified end to end.
-
-## What install does not guarantee
-
-A successful fixture replay is not evidence of general npm compatibility, registry-wide package installation, publishing, private-registry authentication, or a sandboxed script runner.
+Tapid does not yet implement full npm compatibility. Tags, aliases, peers, workspaces, private registry authentication, several semver forms, and parts of optional dependency handling remain incomplete. JSR installation remains fail-closed unless metadata provides an HTTPS npm artifact and valid SHA-512 integrity. A successful install also does not imply that dependency code is safe. Tapid verifies identity and integrity but does not sandbox imported code.
