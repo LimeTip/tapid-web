@@ -382,13 +382,11 @@ Visual judgment remains a human approval gate. A page can pass every mechanical 
 
 ## Current tapid posture
 
-Until a new direction is approved:
+The homepage and documentation redesign are implemented. Further design work must:
 
-- No new five-page generation batch
-- No production implementation
-- No remote branch or pull request
-- No decorative exploration before content hierarchy
-- No visible-browser automation
-- No reference company or website names in project notes
-
-The next design artifact should be one low-fidelity content and typography study based on the current product source of truth.
+- Keep installing tapid as the primary conversion
+- Use package installation examples only as supporting product evidence
+- Establish content hierarchy before decorative exploration
+- Use headless browser automation for verification
+- Keep reference company and website names out of project notes
+- Preserve source-backed alpha claims and the existing documentation routes

@@ -32,7 +32,7 @@ Across the nine rendered pages:
 - Eight pages had no horizontal overflow at either tested viewport.
 - One page had horizontal overflow at both tested viewports and is not a responsive-layout reference.
 
-The range proves that no particular font size, page length, palette, or theme creates quality by itself. Coherence comes from matching the visual system to the product story and primary task.
+The range indicates that no particular font size, page length, palette, or theme creates quality by itself. Coherence comes from matching the visual system to the product story and primary task.
 
 ## Ten anonymous product profiles
 

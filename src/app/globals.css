@@ -51,7 +51,7 @@ body {
   font-family: "Manrope Variable", ui-sans-serif, system-ui, sans-serif;
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
 }
 
 a {
@@ -89,7 +89,7 @@ samp {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
@@ -818,7 +818,11 @@ body:has(.docs-route) .site-footer {
 .docs-route .prose dd a:hover,
 .docs-route .prose td a:hover {
   color: #1d3500;
-  text-decoration-color: currentColor;
+  text-decoration-color: currentcolor;
+}
+
+.docs-route code span[style*="--shiki-light:#D73A49"] {
+  --shiki-light: #b42332 !important;
 }
 
 .docs-status-list {

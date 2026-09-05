@@ -1,5 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useRef } from "react";
 import mark from "@/brand/tapid-mark.svg";
 
 const links = [
@@ -9,6 +13,40 @@ const links = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
+  const mobileNavRef = useRef<HTMLDetailsElement>(null);
+
+  useEffect(() => {
+    const mobileNav = mobileNavRef.current;
+    if (mobileNav) mobileNav.open = false;
+  }, [pathname]);
+
+  useEffect(() => {
+    const closeOnInteraction = (event: KeyboardEvent | PointerEvent) => {
+      const mobileNav = mobileNavRef.current;
+      if (!mobileNav?.open) return;
+
+      if (event instanceof KeyboardEvent) {
+        if (event.key !== "Escape") return;
+      } else if (mobileNav.contains(event.target as Node)) {
+        return;
+      }
+
+      mobileNav.open = false;
+    };
+
+    document.addEventListener("keydown", closeOnInteraction);
+    document.addEventListener("pointerdown", closeOnInteraction);
+    return () => {
+      document.removeEventListener("keydown", closeOnInteraction);
+      document.removeEventListener("pointerdown", closeOnInteraction);
+    };
+  }, []);
+
+  const closeMobileNav = () => {
+    if (mobileNavRef.current) mobileNavRef.current.open = false;
+  };
+
   return (
     <header className="site-header">
       <nav className="site-container site-nav" aria-label="Primary navigation">
@@ -31,9 +69,9 @@ export default function Header() {
           ))}
           <Link href="/docs/getting-started/" className="nav-action">Start here</Link>
         </div>
-        <details className="mobile-nav">
+        <details ref={mobileNavRef} className="mobile-nav">
           <summary>Menu</summary>
-          <div className="mobile-nav-panel">
+          <div className="mobile-nav-panel" onClick={closeMobileNav}>
             {links.map((link) => (
               <Link
                 key={link.href}
