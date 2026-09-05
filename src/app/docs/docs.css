@@ -2,4 +2,5 @@
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 
+/* stylelint-disable-next-line scss/at-rule-no-unknown -- Tailwind CSS v4 directive */
 @config "../../../tailwind.config.ts";
