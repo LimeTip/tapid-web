@@ -5,9 +5,8 @@ import DirectionSection from "@/components/home/DirectionSection";
 
 export default function HomePage() {
   return (
-    <main>
+    <main id="main-content">
       <Hero />
-
       <EvidenceSection />
       <WorkflowSection />
       <DirectionSection />

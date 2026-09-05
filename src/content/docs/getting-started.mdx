@@ -1,55 +1,72 @@
 ---
 title: Getting started
-description: Run the supported Tapid project path and understand its boundaries.
+description: Build the current tapid alpha, install one supported package, and inspect the result.
 ---
 
-Tapid is a JavaScript and TypeScript package manager written in Rust. Version 0.0.7 can resolve and install a deliberately limited npm-compatible dependency graph. It is not yet a drop-in replacement for npm or pnpm.
+tapid is a JavaScript and TypeScript package manager written in Rust. Version 0.0.7 can resolve and install a deliberately limited npm-compatible dependency graph. It is not yet a drop-in replacement for npm or pnpm, and no asset-backed stable release is currently available.
 
-## Install Tapid
+## Build the alpha from source
 
-On macOS or Linux:
+Source installation from the current main branch is the supported contributor-development path on macOS and Linux. Download and inspect the mutable installer before executing it:
 
 ```bash
-curl -fsSL https://tapid.dev/install.sh | bash
+installer="$(mktemp)"
+curl -fsSL https://raw.githubusercontent.com/LimeTip/tapid/main/scripts/install.sh -o "$installer"
+less "$installer"
+sh "$installer" --source-ref main
+rm -f "$installer"
 ```
 
-On Windows PowerShell:
+On Windows PowerShell, download and inspect the installer before running it:
 
 ```powershell
-iwr -useb https://tapid.dev/install.ps1 | iex
+$installer = Join-Path $env:TEMP "tapid-install.ps1"
+Invoke-WebRequest https://raw.githubusercontent.com/LimeTip/tapid/main/scripts/install.ps1 -OutFile $installer
+Get-Content $installer
+& powershell.exe -NoProfile -ExecutionPolicy Bypass -File $installer -SourceRef main
+Remove-Item $installer
 ```
 
-The installer selects the latest stable release, verifies its signed release manifest, checks the archive hash and size, validates the archive structure, and installs the Tapid binary under your user account.
+These commands build tapid from source. They do not install a signed stable release. The no-argument public installer remains unavailable until signed release metadata and platform archives are published and verified.
+
+Open a new terminal if the installer reports that it updated your user-level `PATH`, then confirm the binary is available:
+
+```text
+tapid --version
+```
 
 ## Install a package
 
-Create a project and install a package from npm:
+Create a project and install one supported package:
 
 ```bash
-tapid init demo
+mkdir demo
 cd demo
-tapid install is-char
+tapid init
+tapid i is-char
 ```
 
-The current command writes the dependency to `package.json`, resolves supported transitive dependencies, verifies registry-declared integrity, writes `tapid.lock`, stores verified package trees, and activates managed `node_modules`. Dependency lifecycle scripts stay disabled.
+`tapid i <package>` is an alias for `tapid install <package>`. By default, the command writes the dependency to `package.json`, resolves supported transitive dependencies, requires registry-declared integrity, writes `tapid.lock`, stores verified package trees, and activates managed `node_modules`. Dependency lifecycle scripts stay disabled.
+
+An explicit `--allow-unverified-registry-artifacts` compatibility exception can accept locally computed artifact integrity for an online install. It emits a warning, cannot be combined with `--offline` or `--frozen`, and produces provenance that frozen replay rejects. See [the install command](/docs/commands/install/) before using it.
 
 Run `tapid install` in an existing project to resolve its declared dependencies. Once the lockfile and verified store are present, replay the same graph without changing the lockfile:
 
 ```bash
-tapid install --frozen
+tapid install --offline --frozen
 ```
 
 ## What the current client can answer
 
 - Which exact package versions and dependency edges were selected?
 - Did registry metadata declare the integrity used to authenticate each artifact?
-- Does the lockfile's manifest and store content validate before activation?
+- Does the lockfile's manifest and verified store content validate before activation?
 - Were managed `node_modules` files created?
 - Can an explicit root script run with forwarded arguments?
 - Does the child process exit code return to the caller?
-- Were dependency lifecycle scripts suppressed during install?
+- Were dependency lifecycle scripts suppressed during installation?
 
-The online registry path remains constrained. Tapid requires enough registry metadata and integrity information to construct a verified graph, and fails closed when those requirements are not met.
+The default online registry path fails closed when required registry metadata or declared integrity is missing. The explicit compatibility exception is narrower, visible, and not eligible for frozen replay.
 
 ## Run a project script
 
@@ -64,14 +81,39 @@ Root scripts can execute arbitrary project code through the platform shell. This
 
 ## Current status and direction
 
-| Area | Status | What is true today |
-| --- | --- | --- |
-| Manifest validation | Implemented | `package.json` identity is validated before project work. |
-| Lockfile replay | Implemented | Offline and frozen replay require the lockfile and verified store inputs. |
-| Node-compatible linking | Implemented | Managed package files and executable metadata are materialized for the supported path. |
-| Root scripts | Implemented with constraints | Explicit `tapid run` works, but it is not sandboxed. |
-| Package-spec installation | Implemented with constraints | `tapid install is-char` and `tapid i is-char` add and install supported npm packages. |
-| Full npm compatibility | In progress | Tags, aliases, peers, workspaces, private registry authentication, and several semver and optional-dependency behaviors remain incomplete. |
-| Registry publishing and policy | Future direction | Registry services, provenance verification, policy enforcement, and agent integration are not current client guarantees. |
+<dl className="docs-status-list">
+  <div>
+    <dt>Manifest validation</dt>
+    <dd><strong>Implemented</strong><span><code>package.json</code> identity is validated before project work.</span></dd>
+  </div>
+  <div>
+    <dt>Lockfile replay</dt>
+    <dd><strong>Implemented</strong><span>Offline and frozen replay require the lockfile and verified store inputs.</span></dd>
+  </div>
+  <div>
+    <dt>Node-compatible linking</dt>
+    <dd><strong>Implemented</strong><span>Managed package files and executable metadata are materialized for the supported path.</span></dd>
+  </div>
+  <div>
+    <dt>Root scripts</dt>
+    <dd><strong>Implemented with constraints</strong><span>Explicit <code>tapid run</code> works, but it is not sandboxed.</span></dd>
+  </div>
+  <div>
+    <dt>Package-spec installation</dt>
+    <dd><strong>Implemented with constraints</strong><span><code>tapid install is-char</code> and <code>tapid i is-char</code> add and install supported npm packages.</span></dd>
+  </div>
+  <div>
+    <dt>Full npm compatibility</dt>
+    <dd><strong>In progress</strong><span>Tags, aliases, peers, workspaces, private registry authentication, and several semver and optional-dependency behaviors remain incomplete.</span></dd>
+  </div>
+  <div>
+    <dt>Stable release delivery</dt>
+    <dd><strong>Not available</strong><span>Public installer endpoints exist, but signed release metadata and platform archives have not been published.</span></dd>
+  </div>
+  <div>
+    <dt>Registry publishing and policy</dt>
+    <dd><strong>Future direction</strong><span>Registry services, provenance verification, policy enforcement, and agent integration are not current client guarantees.</span></dd>
+  </div>
+</dl>
 
 Continue with [Commands](/docs/commands/) for the actual CLI surface, then read [Package identity](/docs/concepts/package-identity/) and [Evidence and policy](/docs/concepts/evidence-and-policy/) for the models behind the next implementation work.

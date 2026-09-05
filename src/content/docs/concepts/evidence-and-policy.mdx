@@ -3,7 +3,7 @@ title: Evidence and policy
 description: How facts, decisions, and future trust controls relate.
 ---
 
-Tapid's central design question is not "is this package safe?" It is: what exactly is being used, what is known about it, and which rule permits or stops this operation?
+tapid's central design question is not "is this package safe?" It is: what exactly is being used, what is known about it, and which rule permits or stops this operation?
 
 ## Start with an exact target
 
@@ -19,7 +19,7 @@ Each evidence source has limits. Metadata is not runtime observation. Static ins
 
 A future policy layer can consume evidence for one operation and produce an outcome: allow, warning, prompt, or denial. The same evidence may lead to different outcomes for local development, CI, or unattended automation.
 
-Tapid should not compress uncertainty into an unexplained safety score. A useful result names the evidence, the rule, the decision, and the limitation.
+tapid should not compress uncertainty into an unexplained safety score. A useful result names the evidence, the rule, the decision, and the limitation.
 
 ## What is implemented today
 
@@ -36,7 +36,7 @@ That output demonstrates installation and deterministic replay. It is not a secu
 
 ## Registry and publishing boundary
 
-The current client supports npm registry metadata and artifacts for a documented compatibility subset, plus local fixtures for deterministic testing. It does not provide private-registry authentication, package publishing, a Tapid discovery service, or complete npm compatibility.
+The current client supports npm registry metadata and artifacts for a documented compatibility subset, plus local fixtures for deterministic testing. It does not provide private-registry authentication, package publishing, a tapid discovery service, or complete npm compatibility.
 
 Future registry routing should make the source explicit. A private scope should not fall through to a public registry because a configuration entry is missing. Credentials should stay within the registry boundary that needs them and should never be silently sent to another origin.
 
