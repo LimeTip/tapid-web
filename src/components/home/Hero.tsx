@@ -1,57 +1,53 @@
 import Link from "next/link";
-import { Button } from "@base-ui/react/button";
 
-const session = [
-  { command: "tapid init demo", output: "Created demo/package.json", tone: "success" },
-  { command: "tapid install is-char", output: "Installed 1 package(s)", tone: "success" },
-  { command: "tapid install --frozen", output: "Replayed lockfile: 1 package(s)", tone: "success" },
+const evidence = [
+  ["request", "is-char"],
+  ["resolved", "is-char@1.0.0"],
+  ["origin", "registry.npmjs.org"],
+  ["integrity", "registry-declared SHA-512 by default"],
+  ["lifecycle", "dependency scripts not run"],
 ];
 
 export default function Hero() {
   return (
-    <section className="hero-grid overflow-hidden bg-neutral-950 text-white">
-      <div className="site-container grid gap-14 pb-16 pt-16 md:pb-24 md:pt-24 lg:grid-cols-[minmax(0,1fr)_minmax(25rem,0.72fr)] lg:items-end lg:gap-20">
-        <div>
-          <h1 className="max-w-4xl text-[3.6rem] font-semibold leading-[0.95] tracking-[-0.04em] text-white sm:text-7xl lg:text-[7.2rem]">
-            Package management with clear evidence.
-          </h1>
-          <p className="mt-9 max-w-xl text-lg leading-8 text-neutral-300 sm:text-xl">
-            Tapid is a JavaScript and TypeScript package manager written in Rust. It makes package identity, install evidence, and execution boundaries visible instead of leaving them implicit.
+    <section className="home-hero" aria-labelledby="home-title">
+      <div className="site-container hero-grid">
+        <div className="hero-copy">
+          <h1 id="home-title">Install packages <span>with evidence.</span></h1>
+          <p>
+            tapid resolves supported npm packages, verifies registry-declared integrity by default, and records the exact graph before activation.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-            <Button render={<Link href="/docs/getting-started/" />} className="inline-flex min-h-12 items-center justify-center bg-lime-400 px-6 text-base font-semibold !text-neutral-950 transition-colors hover:bg-lime-500 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">
-              Install Tapid
-            </Button>
-            <Link href="/docs/commands/" className="font-medium text-white underline decoration-neutral-600 decoration-2 underline-offset-4 transition-colors hover:text-lime-300 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-lime-300">
-              Inspect the CLI <span aria-hidden="true">↗</span>
-            </Link>
+          <div className="hero-actions">
+            <Link href="/docs/getting-started/" className="action-primary">Read the quickstart</Link>
+            <Link href="#current-scope" className="action-secondary">See the alpha limits</Link>
           </div>
         </div>
 
-        <div className="overflow-hidden border border-neutral-700 bg-[#111111] shadow-2xl shadow-black/20">
-          <div className="flex items-center gap-2 border-b border-neutral-700 px-5 py-4" aria-label="Terminal window">
-            <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" aria-hidden="true" />
-            <span className="h-2.5 w-2.5 rounded-full bg-amber-300/80" aria-hidden="true" />
-            <span className="h-2.5 w-2.5 rounded-full bg-lime-400/80" aria-hidden="true" />
-            <span className="ml-3 font-mono text-xs text-neutral-400">zsh · ~/projects/demo</span>
+        <figure className="install-artifact">
+          <div className="artifact-command">
+            <span>First package</span>
+            <code>tapid i is-char</code>
           </div>
-          <div className="space-y-6 p-5 font-mono text-[0.78rem] leading-6 sm:p-6 sm:text-sm">
-            {session.map(({ command, output, tone }) => (
-              <div key={command}>
-                <p className="m-0 break-words text-neutral-100">
-                  <span className="text-lime-300">$</span> {command}
-                </p>
-                <p className={`m-0 break-words ${tone === "success" ? "text-neutral-300" : "text-amber-300"}`}>
-                  {output}
-                </p>
+          <div className="artifact-package">
+            <strong>is-char</strong>
+            <span>1.0.0</span>
+          </div>
+          <dl className="artifact-evidence">
+            {evidence.map(([key, value]) => (
+              <div key={key}>
+                <dt>{key}</dt>
+                <dd>{value}</dd>
               </div>
             ))}
-            <p className="m-0 text-neutral-600"><span className="text-lime-300">$</span> <span className="inline-block h-4 w-2 translate-y-0.5 bg-neutral-400 motion-safe:animate-pulse" aria-label="Cursor" /></p>
+          </dl>
+          <div className="artifact-result">
+            <span>Result</span>
+            <code>Installed 1 package(s)</code>
           </div>
-          <div className="border-t border-neutral-700 px-5 py-4 text-xs leading-5 text-neutral-500 sm:px-6">
-            Output verified with Tapid 0.0.7 against the npm registry.
-          </div>
-        </div>
+          <figcaption>
+            Example from the supported npm-compatible path. Full digests are recorded in <code>tapid.lock</code>.
+          </figcaption>
+        </figure>
       </div>
     </section>
   );

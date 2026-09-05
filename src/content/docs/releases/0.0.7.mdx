@@ -1,37 +1,36 @@
 ---
-title: Tapid 0.0.7
-description: Registry-backed installation, schema-6 lockfiles, and signed release delivery.
+title: tapid 0.0.7 alpha
+description: Current development target for the bounded npm-compatible consumer path.
 ---
 
-Tapid 0.0.7 connects the consumer path to supported npm registry metadata and artifacts. It resolves transitive dependencies deterministically, verifies registry-declared SHA-512 integrity, writes a schema-6 `tapid.lock`, stores verified trees outside the project by default, and materializes managed `node_modules` without running dependency lifecycle scripts.
+tapid 0.0.7 is the current source-built development target. It connects the consumer path to supported npm registry metadata and artifacts, resolves supported transitive dependencies deterministically, requires registry-declared SHA-512 integrity by default, writes a schema-6 `tapid.lock`, stores verified trees, and materializes managed `node_modules` without running dependency lifecycle scripts.
 
-## Install
+No asset-backed stable release is currently available. Production support is not available.
 
-On macOS and Linux:
+## Evaluate the source-built alpha
 
-```sh
-curl -fsSL https://tapid.dev/install.sh | bash
+Follow [Getting started](/docs/getting-started/) to build the current main branch from source. After installation, the shortest supported package path is:
+
+```text
+mkdir demo
+cd demo
+tapid init
+tapid i is-char
 ```
-
-On Windows PowerShell:
-
-```powershell
-iwr -useb https://tapid.dev/install.ps1 | iex
-```
-
-These commands use the latest signed stable release. The website publishes this page only after the signed `v0.0.7` manifest and all advertised platform archives are available.
 
 ## Lockfile migration
 
 Schema 5 lockfiles must be regenerated online because schema 6 records whether package integrity came from registry metadata. Schema 4 remains a controlled compatibility path with narrower identity and replay rules.
 
-```sh
+```text
 tapid install
 tapid lock verify
 ```
 
 ## Current limits
 
-Tapid implements an npm-compatible subset rather than complete npm behavior. Tags, aliases, peer resolution, workspaces, private-registry authentication, lifecycle-script approval, and several package-management commands remain incomplete. Dependency lifecycle scripts stay disabled by default.
+tapid implements an npm-compatible subset rather than complete npm behavior. Tags, aliases, peer resolution, workspaces, private-registry authentication, lifecycle-script approval, and several package-management commands remain incomplete. Dependency lifecycle scripts stay disabled by default.
 
-See the canonical [repository release notes](https://github.com/LimeTip/tapid/blob/main/docs/releases/0.0.7.md) for the complete implementation details.
+The public installer endpoints cannot complete their no-argument stable path until signed release metadata and all advertised platform archives are published and clean release exercises pass.
+
+See the canonical [repository release notes](https://github.com/LimeTip/tapid/blob/main/docs/releases/0.0.7.md) for complete implementation details.

@@ -1,6 +1,6 @@
 # Tapid website design feedback
 
-This file is the shared review queue for Hermes and Codex. Add one entry per observed issue or requested change.
+This file is the shared review queue for human and automated contributors. Add one entry per observed issue or requested change.
 
 ## Feedback format
 
@@ -23,6 +23,29 @@ Verification:
 
 ## Open feedback
 
+## 2026-09-02, apply Taste Skill across the site
+
+Status: implemented
+Route: all routes
+Element: homepage, site chrome, and Fumadocs shell
+Category: layout
+
+Observation:
+
+The homepage was technically clear but relied on a common dark grid, oversized heading, terminal-window composition, repeated split sections, and frequent horizontal rules. The documentation shell was functional but visually detached from a distinctive Tapid system.
+
+Requested change:
+
+Use the upstream `design-taste-frontend` skill, image-first rendered references, Tapid's existing mark and lime accent, and the existing Fumadocs framework to create one evidence-led visual system across the site.
+
+Reason or preference:
+
+Tapid should look intentionally designed around package identity, integrity, lockfiles, and activation evidence rather than around familiar AI-generated developer-tool patterns.
+
+Verification:
+
+Completed headless responsive, keyboard, no-JavaScript, reduced-motion, axe, Lighthouse, lint, type, audit, and production-build verification. Two independent final reviewers found no remaining material issues.
+
 ## 2026-08-22, documentation Markdown needs native structure
 
 Status: implemented  
@@ -32,11 +55,11 @@ Category: typography
 
 Observation:
 
-GFM pipe tables were rendered as a single paragraph, and Tailwind's list reset removed useful bullets. Links inside documentation lists were visually indistinguishable from surrounding text.
+Pipe-delimited Markdown tables were rendered as a single paragraph, and the site's list reset removed useful bullets. Links inside documentation lists were visually indistinguishable from surrounding text.
 
 Requested change:
 
-Parse GitHub-Flavored Markdown tables and apply shared styles for tables, unordered and ordered lists, list markers, and inline documentation links.
+Parse pipe-delimited Markdown tables and apply shared styles for tables, unordered and ordered lists, list markers, and inline documentation links.
 
 Reason or preference:
 
@@ -59,7 +82,7 @@ The current docs hub reads like a sparse landing page with a horizontal link row
 
 Requested change:
 
-Update the docs shell and overview into a focused technical documentation hub with a new MDX docs index, concept, guide, and reference pages, plus shared navigation with clear active states and a durable information hierarchy. Prefer Base UI primitives for interactive behavior and semantic links for static structure.
+Update the docs shell and overview into a focused technical documentation hub with a new MDX docs index, concept, guide, and reference pages, plus shared navigation with clear active states and a durable information hierarchy. Prefer documented accessible component primitives for interactive behavior and semantic links for static structure.
 
 Reason or preference:
 

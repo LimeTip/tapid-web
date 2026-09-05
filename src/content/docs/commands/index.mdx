@@ -1,9 +1,9 @@
 ---
 title: Commands
-description: The Tapid CLI, organised by command and implementation status.
+description: The tapid CLI, organised by command and implementation status.
 ---
 
-Tapid's CLI is intentionally explicit. Each command has a narrow responsibility, documented inputs, and a clear boundary when the current client cannot complete an operation.
+tapid's CLI is intentionally explicit. Each command has a narrow responsibility, documented inputs, and a clear boundary when the current client cannot complete an operation.
 
 ## Command reference
 
@@ -12,22 +12,27 @@ Tapid's CLI is intentionally explicit. Each command has a narrow responsibility,
 - [`tapid lock verify`](/docs/commands/lock-verify/) validates the lockfile in the current project.
 - [`tapid install`](/docs/commands/install/) replays or installs project dependencies through the currently supported paths.
 - [`tapid run`](/docs/commands/run/) runs an explicit root `package.json` script and forwards arguments.
-- [`tapid upgrade`](/docs/commands/upgrade/) inspects and applies a verified stable Tapid release.
+- [`tapid upgrade`](/docs/commands/upgrade/) verifies and applies a compatible signed release when release artifacts are available.
 
 ## Status language
 
-Each page labels behavior as **implemented**, **constrained**, or **not currently supported**. A command can be implemented while still having important limits. Examples stay within the behavior verified for the current release.
+Each page labels behavior as **implemented**, **constrained**, or **not currently supported**. A command can be implemented while still having important limits. Examples stay within behavior verified for the current development target.
 
-## Typical project path
+## Typical alpha path
 
-Install the latest stable binary, create a project, and install a package:
+Build the current main branch through the source installer, create a project, and install one supported package:
 
 ```bash
-curl -fsSL https://tapid.dev/install.sh | bash
-tapid init demo
+installer="$(mktemp)"
+curl -fsSL https://raw.githubusercontent.com/LimeTip/tapid/main/scripts/install.sh -o "$installer"
+less "$installer"
+sh "$installer" --source-ref main
+rm -f "$installer"
+mkdir demo
 cd demo
-tapid install is-char
+tapid init
+tapid i is-char
 tapid install --frozen
 ```
 
-Tapid 0.0.7 supports a bounded npm-compatible subset. Read the install command page before migrating a project that depends on tags, aliases, peers, workspaces, private registries, lifecycle scripts, or other npm-specific behavior.
+This is a source-built development path, not a stable binary release. Version 0.0.7 supports a bounded npm-compatible subset. Read the install command page before evaluating a project that depends on tags, aliases, peers, workspaces, private registries, lifecycle scripts, or other npm-specific behavior.

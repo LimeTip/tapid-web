@@ -1,15 +1,15 @@
 ---
-title: Tapid documentation
-description: A short map of the current Tapid client and its documentation.
+title: tapid documentation
+description: A short map of the current tapid client and its documentation.
 ---
 
-Tapid is a JavaScript and TypeScript package manager written in Rust. These docs follow one question from beginning to end: how can a project understand the exact code it is about to install or run, and which trust boundaries apply?
+tapid is a JavaScript and TypeScript package manager written in Rust. These docs follow one question from beginning to end: how can a project understand the exact code it is about to install or run, and which trust boundaries apply?
 
-The current client resolves a documented npm-compatible subset, verifies package artifacts, records exact identities in `tapid.lock`, uses a content-addressed store, materializes `node_modules`, and runs root scripts explicitly. Planned behavior remains labeled as planned.
+The current client resolves a documented npm-compatible subset, requires registry-declared SHA-512 integrity by default, records exact identities in `tapid.lock`, uses a content-addressed store, materializes `node_modules`, and runs root scripts explicitly. An explicit compatibility exception can accept locally computed integrity but produces provenance that frozen replay rejects. Planned behavior remains labeled as planned.
 
 ## Start with the problem
 
-Begin with [Getting started](/docs/getting-started/) to install Tapid and exercise the supported package path. Then read [Package identity](/docs/concepts/package-identity/) to see why a package name alone is not enough to identify code.
+Begin with [Getting started](/docs/getting-started/) to install tapid and exercise the supported package path. Then read [Package identity](/docs/concepts/package-identity/) to see why a package name alone is not enough to identify code.
 
 That gives the request a concrete target: a package, version, registry, and artifact digest that another person or system can inspect.
 

@@ -1,47 +1,49 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
-import { RootProvider } from "fumadocs-ui/provider/next";
+import "@fontsource-variable/manrope";
+import "@fontsource-variable/jetbrains-mono";
 import "@/app/globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tapid.dev"),
   title: {
-    default: "Tapid | The package manager that shows its work",
-    template: "%s | Tapid",
+    default: "tapid | Install packages with evidence",
+    template: "%s | tapid",
   },
   description:
-    "Tapid is a JavaScript and TypeScript package manager written in Rust, with verified package installation, inspectable lockfiles, and deterministic replay.",
-  applicationName: "Tapid",
+    "tapid is an alpha JavaScript and TypeScript package manager that records exact package identity and requires registry-declared integrity by default before activation.",
+  applicationName: "tapid",
   authors: [{ name: "LimeTip" }],
   openGraph: {
-    title: "Tapid | The package manager that shows its work",
+    title: "tapid | Install packages with evidence",
     description:
-      "A JavaScript and TypeScript package manager written in Rust, built around inspectable project behavior.",
+      "A source-built alpha package manager for exact identity, integrity evidence, and inspectable lockfile replay.",
     url: "https://tapid.dev",
-    siteName: "Tapid",
+    siteName: "tapid",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tapid | The package manager that shows its work",
+    title: "tapid | Install packages with evidence",
     description:
-      "An inspectable JavaScript and TypeScript package manager written in Rust.",
+      "Exact package identity, integrity evidence, and inspectable lockfile replay for JavaScript and TypeScript projects.",
   },
+};
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#f5f6f0",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body>
-        <RootProvider
-          theme={{ enabled: true, defaultTheme: "dark", enableSystem: false }}
-          search={{ enabled: true, preload: false, options: { type: "static", api: "/api/search" } }}
-        >
-          <Header />
-          {children}
-          <Footer />
-        </RootProvider>
+        <a className="skip-link" href="#main-content">Skip to content</a>
+        <Header />
+        {children}
+        <Footer />
       </body>
     </html>
   );

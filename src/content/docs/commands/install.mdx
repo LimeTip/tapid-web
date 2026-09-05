@@ -9,7 +9,7 @@ description: Replay or install project dependencies through the supported paths.
 tapid install [PACKAGE] [OPTIONS]
 ```
 
-The install command can add one package or install the dependencies already declared in `package.json`. It resolves the supported npm-compatible subset, verifies registry-declared integrity, writes `tapid.lock`, stores verified package trees, and activates managed `node_modules`.
+The install command can add one package or install the dependencies already declared in `package.json`. By default, it resolves the supported npm-compatible subset, requires registry-declared integrity, writes `tapid.lock`, stores verified package trees, and activates managed `node_modules`.
 
 ```bash
 tapid install is-char
@@ -17,7 +17,7 @@ tapid i is-char
 tapid install
 ```
 
-Package arguments support unscoped names, scoped names, exact versions, and the `npm:` and `jsr:` prefixes where the underlying registry metadata satisfies Tapid's current trust and compatibility requirements.
+Package arguments support unscoped names, scoped names, exact versions, and the `npm:` and `jsr:` prefixes where the underlying registry metadata satisfies tapid's current trust and compatibility requirements.
 
 ## Project replay
 
@@ -27,7 +27,7 @@ Use offline or frozen mode to replay an existing project lockfile without networ
 tapid install --offline --frozen --project-dir ./example
 ```
 
-The project must provide a valid `package.json`, a compatible `tapid.lock`, and the verified store inputs required by the lockfile. Tapid validates these inputs before activating managed `node_modules`.
+The project must provide a valid `package.json`, a compatible `tapid.lock`, and the verified store inputs required by the lockfile. tapid validates these inputs before activating managed `node_modules`.
 
 The repository fixture verifies deterministic replay, managed files, executable metadata, root-script behavior, argument forwarding, exit-code propagation, and dependency lifecycle suppression.
 
@@ -44,8 +44,8 @@ The repository fixture verifies deterministic replay, managed files, executable 
 
 `--registry-fixture` is for tests and air-gapped development. It is not a production registry mirror or authentication feature.
 
-`--allow-unverified-registry-artifacts` is an explicit compatibility escape hatch. It cannot be combined with `--offline` or `--frozen`.
+`--allow-unverified-registry-artifacts` is an explicit compatibility escape hatch. It emits a warning, records locally computed integrity provenance, cannot be combined with `--offline` or `--frozen`, and produces a lockfile that frozen replay rejects.
 
 ## Current limits
 
-Tapid does not yet implement full npm compatibility. Tags, aliases, peers, workspaces, private registry authentication, several semver forms, and parts of optional dependency handling remain incomplete. JSR installation remains fail-closed unless metadata provides an HTTPS npm artifact and valid SHA-512 integrity. A successful install also does not imply that dependency code is safe. Tapid verifies identity and integrity but does not sandbox imported code.
+tapid does not yet implement full npm compatibility. Tags, aliases, peers, workspaces, private registry authentication, several semver forms, and parts of optional dependency handling remain incomplete. JSR installation remains fail-closed unless metadata provides an HTTPS npm artifact and valid SHA-512 integrity. A successful install also does not imply that dependency code is safe. tapid verifies identity and integrity but does not sandbox imported code.

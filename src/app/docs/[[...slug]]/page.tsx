@@ -29,9 +29,11 @@ export default async function DocsPageRoute({ params }: PageProps) {
   const MDX = page.data.body;
   return (
     <DocsPage toc={page.data.toc}>
-      <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
-      <DocsBody><MDX /></DocsBody>
+      <div id="main-content">
+        <DocsTitle>{page.data.title}</DocsTitle>
+        <DocsDescription>{page.data.description}</DocsDescription>
+        <DocsBody><MDX /></DocsBody>
+      </div>
     </DocsPage>
   );
 }
